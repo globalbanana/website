@@ -33,7 +33,7 @@ const secret = process.env.GRAPHAPI_SECRET
 //           return;
 //         }
 //         res0 = JSON.parse(res[0].body);
- 
+
 //         if (res0.error) {
 //           console.log(res0.error);
 //         } else {
@@ -51,7 +51,7 @@ export function getAccessToken (x) {
   const url = `https://graph.facebook.com/oauth/access_token?client_id=${clientId}&client_secret=${secret}&grant_type=client_credentials`
 
   return fetch(url).then(
-      res => res.json()
+    res => res.json()
   ).then(resultJson => {
     const _at = resultJson.access_token
     process.env.GRAPHAPI_ACCESS_TOKEN = _at
@@ -72,7 +72,7 @@ export function getVideoList (pageId) {
   const url = `https://graph.facebook.com/v2.9/${pageId}?fields=videos&access_token=${accessToken}`
 
   return fetch(url).then(
-      res => res.json()
+    res => res.json()
   ).then(resultJson => {
     return resultJson.videos.data
   })
@@ -83,7 +83,7 @@ export function getVideoDetail (videoId) {
   const url = `https://graph.facebook.com/v2.9/${videoId}?fields=source&access_token=${accessToken}`
 
   return fetch(url).then(
-      res => res.json()
+    res => res.json()
   ).then(resultJson => {
     return resultJson
   })
@@ -105,7 +105,7 @@ export async function getVideoDetailList (pageId) {
   // for (let i = 0; i < videoList.length; i++) {
     const videoObj = videoList[i]
     const postId = videoObj.id
-    const detail = await getVideoDetail(postId)
+    const detail = await getVideoDetail(postId) // eslint-disable-line
     videoObj.source = detail.source
   }
 

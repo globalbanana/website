@@ -2,6 +2,8 @@ import { connect } from 'react-redux'
 import Hello from './../components/Hello'
 import helloActionCreator from '../actions/hello'
 
+import jsonAPIActionCreator from '../actions/jsonAPI'
+
 const mapStateToProps = (state, ownProps) => {
   return {
     message: state.hello.message
@@ -26,6 +28,7 @@ preloadHello.initState = (store, req, res) => {
     return new Promise((resolve, reject) => {
       console.log('preload ......................')
       dispatch(helloActionCreator.helloWorld())
+      dispatch(jsonAPIActionCreator.getJsonAPI());
       resolve(1)
     })
   }

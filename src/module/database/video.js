@@ -3,7 +3,7 @@ const Schema = require('mongoose').Schema
 //* _*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*
 // Schema Definition
 //* _*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*
-var VideoObject = new Schema({
+let VideoObject = new Schema({
   fbId: { type: String, required: true },
   title: { type: String },
   description: { type: String, required: true },
@@ -46,8 +46,9 @@ export function create (payload = {}) {
     instance.originThumb = originThumb
 
     instance.save(function (err, obj) {
-      if (err) reject(err)
-      else {
+      if (err) {
+        reject(err)
+      } else {
         resolve(obj)
       }
     })
@@ -56,19 +57,23 @@ export function create (payload = {}) {
 
 export function getList (payload = {}) {
   return new Promise((resolve, reject) => {
+    const initLimit = 20
+    const initSkip = 0
     const _mongoose = global.DBInstance
 
     const {limit, skip} = payload
 
     const _payload = {
-      limit: limit || 10,
-      skip: skip || 0
+      limit: limit || initLimit,
+      skip: skip || initSkip
     }
 
     const Video = _mongoose.model('Video', VideoObject)
     const query = Video.find({}, null, _payload)
     query.exec(function (err, vObjList) {
-      if (err) reject(err)
+      if (err) {
+        reject(err)
+      }
       resolve(vObjList)
     })
   })
@@ -81,7 +86,9 @@ export function getDetail (_id) {
     const Video = _mongoose.model('Video', VideoObject)
     const query = Video.findOne({_id})
     query.exec(function (err, vObj) {
-      if (err) reject(err)
+      if (err) {
+        reject(err)
+      }
       resolve(vObj)
     })
   })

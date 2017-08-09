@@ -2,12 +2,18 @@
 import HelloWorld from './containers/HelloWorld'
 import PreloadHelloWorld from './containers/PreloadHelloWorld'
 import JsonAPI from './containers/JsonAPI'
+import VideoList from './containers/VideoList'
 
 const matchConfig = [
   {
     path: '/api',
     component: JsonAPI,
     initState: JsonAPI.initState
+  },
+  {
+    path: '/videos',
+    component: VideoList,
+    initState: VideoList.initState
   },
   {
     path: '/preload',

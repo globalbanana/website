@@ -1,25 +1,29 @@
-var https = require('https')
-var http = require('http')
-var downloadableAPI = require('url-valid')
-var fs = require('fs')
+let https = require('https')
+let http = require('http')
+let downloadableAPI = require('url-valid')
+let fs = require('fs')
 
-var fileNameUtil = require('./utils/fileName')
+let fileNameUtil = require('./utils/fileName')
 
 function downloadAPI (url0) {
-  var downloadlink = url0
+  let downloadlink = url0
 
-  var httprequest
+  let httprequest
 
-  var path = ''
+  let path = ''
 
-  var isStart = true
+  let isStart = true
 
-  var errMsg = ''
+  let errMsg = ''
 
   setHttpRequest(url0)
 
   function setHttpRequest (t) {
-    if (isHttps(t) === 1) { httprequest = https } else if (isHttps(t) === 0) { httprequest = http } else {
+    if (isHttps(t) === 1) {
+      httprequest = https
+    } else if (isHttps(t) === 0) {
+      httprequest = http
+    } else {
       console.log(' error on http or https')
       isStart = false
       errMsg = ' error on http or https'
@@ -33,7 +37,7 @@ function downloadAPI (url0) {
       console.log('path is not existed, please create it before save it')
       errMsg = 'path is not existed, please create it before save it'
     }
-    return this
+    return
   }
 
   function isHttps (url) {
@@ -52,8 +56,9 @@ function downloadAPI (url0) {
         if (err) {
           reject(err)
         } else {
-          if (valid) resolve()
-          else {
+          if (valid) {
+            resolve()
+          } else {
             errMsg = 'linke is not downloadable'
             reject(new Error(errMsg))
           }
@@ -64,13 +69,15 @@ function downloadAPI (url0) {
 
   function downloadToLocal () {
     return new Promise(function (resolve, reject) {
-      if (!isStart) reject(new Error('it is not start...'))
+      if (!isStart) {
+        reject(new Error('it is not start...'))
+      }
 
-      var filename = fileNameUtil.urlFileName(downloadlink)
+      let filename = fileNameUtil.urlFileName(downloadlink)
 
-      var dist = path + '/' + filename
+      let dist = path + '/' + filename
 
-      var readableStream = fs.createWriteStream(dist)
+      let readableStream = fs.createWriteStream(dist)
 
       httprequest.get(downloadlink, function (response) {
         response.pipe(readableStream)

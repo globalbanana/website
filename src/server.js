@@ -1,11 +1,12 @@
 
 require('babel-register');
+
 import express from 'express'
 import ajax from './middleware/ajax'
 import {initDB} from './module/database'
 
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 initDB()
 
 require('css-modules-require-hook')({

@@ -16,14 +16,14 @@ const uploadParams = {Bucket: bucketName, Key: '', Body: '', ACL: 'public-read'}
  */
 export function uploadLocalFile (file) {
   return new Promise(function (resolve, reject) {
-    var fs = require('fs')
-    var fileStream = fs.createReadStream(file)
+    let fs = require('fs')
+    let fileStream = fs.createReadStream(file)
     fileStream.on('error', function (err) {
       console.log('File Error', err)
     })
     uploadParams.Body = fileStream
 
-    var path = require('path')
+    let path = require('path')
 
     uploadParams.Key = path.basename(file)
 

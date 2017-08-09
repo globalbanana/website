@@ -13,6 +13,7 @@ import {
   Switch,
   matchPath
 } from 'react-router-dom'
+import { PURE_CSS, PURE_GRIDS_CSS } from './config/env'
 
 
 function serverRender(req, res) {
@@ -72,6 +73,8 @@ function renderFullPage(html, preloadedState) {
     <!DOCTYPE html>
     <html>
       <head>
+        <link rel='stylesheet' href="${PURE_CSS}" />
+        <link rel='stylesheet' href="${PURE_GRIDS_CSS}" />
         <title>Redux Hello World</title>
         <link rel="stylesheet" type="text/css" href=${bundleCSS}>
       </head>

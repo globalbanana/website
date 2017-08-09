@@ -6,8 +6,8 @@ export function initDB () {
   const mongoPw = process.env.MONGO_PASSWORD
   const mongoUrl = process.env.MONGO_URL
   mongoose.connect(
-        `mongodb://mongodb://${mongoUsername}:${mongoPw}@${mongoUrl}`
-    )
+    `mongodb://mongodb://${mongoUsername}:${mongoPw}@${mongoUrl}`
+  )
   global.DBInstance = mongoose
 }
 
@@ -15,4 +15,4 @@ export {
   create as videoCreate,
   getList as videoList,
   getDetail as videoDetail
- }
+}

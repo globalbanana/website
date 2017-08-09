@@ -1,10 +1,15 @@
 import fetch from 'isomorphic-fetch'
 
 const actionCreator = {
-  getJsonAPI: (_username) => {
+  getVideoList: () => {
+    console.log('*_*_*_* getVideoList *_*_*_*_*')
+    const port = process.env.PORT || 3000
     return (
-      fetch(`https://jsonplaceholder.typicode.com/posts`)
-      .then(response => response.json())
+      // fetch(`https://jsonplaceholder.typicode.com/posts`)
+      fetch(`http://localhost:${port}/ajax/videos`)
+      .then(response => {
+        return response.json()
+      })
     )
   }
 }
