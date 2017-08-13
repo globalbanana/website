@@ -1,0 +1,22 @@
+.navHeader {
+  background-color: #ffffff;
+  height: 50px;
+  text-align: left;
+    padding: 0px 50px;
+}
+
+.navHeader ul {
+    float: right;
+    color: #aaa;
+}
+
+.navHeader li a {
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navHeader li a:hover:not(.active) {
+  background-color: #eee;
+}

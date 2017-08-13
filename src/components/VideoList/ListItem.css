@@ -1,6 +1,9 @@
 
 .row {
-    max-height: 600px;
+    /* max-height: 600px; */
+    margin: 50px 20px;
+    padding: 20px;
+    background: #f9f9f9;
 }
 
 .content-subhead{
@@ -15,4 +18,16 @@
 
 .videoStyle {
     max-height: 500px;
+    margin: 20px;
+}
+
+.h2Description {
+    font-size: xx-large;
+    display: inline;
+}
+
+.pageButton {
+    background: #3b5998;
+    margin-left: 40px;
+    color: #ffffff;
 }

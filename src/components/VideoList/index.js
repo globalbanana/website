@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import ToolBar from './ToolBar'
 import ListItem from './ListItem'
+// import style from './index.css'
 
 class VideoList extends React.Component {
   // constructor (props) {
@@ -19,6 +21,10 @@ class VideoList extends React.Component {
               </div>
           </div>
 
+
+        <div className="pure-u-1 pure-u-md-1">
+          <ToolBar />
+        </div>
 
         <div className="pure-u-1 pure-u-md-1">
             {
