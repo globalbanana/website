@@ -6,5 +6,6 @@ public
 dist
 public
 syncEC2ByPem.sh
+envDev.sh
 env.sh
 config.json

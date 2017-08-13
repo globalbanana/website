@@ -3,10 +3,15 @@ const Schema = require('mongoose').Schema
 //* _*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*
 // Schema Definition
 //* _*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*
-let VideoObject = new Schema({
+var VideoObject = new Schema({
   fbId: { type: String, required: true },
+  fbPageId: { type: String, required: true },
   title: { type: String },
+  newTitle: { type: String },
   description: { type: String, required: true },
+  newDescription: { type: String },
+  publishedAt: { type: Date},
+  isReady: { type: Boolean },
   source: { type: String, required: true },
   s3Source: { type: String, required: true },
   likes: { type: Object },
@@ -14,6 +19,7 @@ let VideoObject = new Schema({
   rate: { type: Number },
   originPage: { type: String },
   originThumb: { type: String },
+  createdAt: { type: Date, default: Date.now },
   buff: Buffer
 })
 
@@ -28,68 +34,87 @@ VideoObject.pre('save', function (next) {
   next()
 })
 
+const assignKeyValue  = (from, to) => {
+  Object.keys(from).forEach(
+    (key) => {
+      to[key] = from[key]
+    }
+  )
+}
+
 export function create (payload = {}) {
   return new Promise((resolve, reject) => {
     const _mongoose = global.DBInstance
     const VideoInstance = _mongoose.model('Video', VideoObject)
     const instance = new VideoInstance()
-    const {fbId, title, originPage, description, source, s3Source, likes, videoLength, originThumb} = payload
 
-    instance.fbId = fbId
-    instance.title = title
-    instance.description = description
-    instance.source = source
-    instance.s3Source = s3Source
-    instance.likes = likes
-    instance.originPage = originPage
-    instance.videoLength = videoLength
-    instance.originThumb = originThumb
+    assignKeyValue(payload, instance)
 
     instance.save(function (err, obj) {
-      if (err) {
-        reject(err)
-      } else {
+      if (err) reject(err)
+      else {
         resolve(obj)
       }
     })
   })
 }
 
-export function getList (payload = {}) {
+
+export function deleteById (id) {
   return new Promise((resolve, reject) => {
-    const initLimit = 20
-    const initSkip = 0
+    const _mongoose = global.DBInstance
+    const Video = _mongoose.model('Video', VideoObject)
+
+    Video.findByIdAndRemove(id, function (err, vObj) {  
+      if (err) reject(err)
+      resolve(vObj)
+    });
+
+  })
+}
+
+export function getList (payload = {}, field={}) {
+  return new Promise((resolve, reject) => {
     const _mongoose = global.DBInstance
 
-    const {limit, skip} = payload
-
     const _payload = {
-      limit: limit || initLimit,
-      skip: skip || initSkip
+      limit: 10,
+      skip: 0,
+      sort: '-date',
+      ...payload
     }
 
     const Video = _mongoose.model('Video', VideoObject)
-    const query = Video.find({}, null, _payload)
+    const query = Video.find(field, null, _payload)
     query.exec(function (err, vObjList) {
-      if (err) {
-        reject(err)
-      }
+      if (err) reject(err)
       resolve(vObjList)
     })
   })
 }
 
-export function getDetail (_id) {
+export function getDetail (id) {
   return new Promise((resolve, reject) => {
     const _mongoose = global.DBInstance
 
     const Video = _mongoose.model('Video', VideoObject)
-    const query = Video.findOne({_id})
+    const query = Video.findOne({id})
     query.exec(function (err, vObj) {
-      if (err) {
-        reject(err)
-      }
+      if (err) reject(err)
       resolve(vObj)
     })
+  })
+}
+
+
+export function count () {
+  return new Promise((resolve, reject) => {
+    const _mongoose = global.DBInstance
+    const Video = _mongoose.model('Video', VideoObject)
+
+    Video.count({}, function (err, count) {  
+      if (err) reject(err)
+      resolve(count)
+    });
   })
 }

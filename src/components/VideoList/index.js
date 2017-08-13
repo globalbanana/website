@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import ToolBar from './ToolBar'
 import ListItem from './ListItem'
+import Pagination from './Pagination'
 // import style from './index.css'
 
 class VideoList extends React.Component {
@@ -37,6 +38,10 @@ class VideoList extends React.Component {
                   description={description}/>
               })
             }
+        </div>
+
+        <div className="pure-u-1 pure-u-md-1">
+          <Pagination />
         </div>
       </div>
     )
