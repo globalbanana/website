@@ -12,9 +12,8 @@ class ListItem extends React.Component {
   // }
 
   render() {
-    const {s3Source, description} = this.props
-    const pageName = 'PeterPage'
-    const pageLink = 'https://facebook.com'
+    const {s3Source, description, originThumb, fbPageName, fbPageId} = this.props
+    const pageLink = `https://facebook.com/${fbPageId}`
 
     return (
       <div className={classNames(style['row'])}>
@@ -29,14 +28,14 @@ class ListItem extends React.Component {
 
                     <a className={classNames(style['pageButton'] ,"pure-button" )}
                       href = {pageLink}>
-                      {pageName}
+                      {fbPageName}
                     </a>
  
 
                   </header>
 
                   <div>
-                    <video className={classNames(style['videoStyle'])} controls preload="none" autoPlay="" loop="" muted="" data-reactid=".0.1.0.0">
+                    <video className={classNames(style['videoStyle'])} controls poster={originThumb} preload="none" autoPlay="" loop="" muted="" data-reactid=".0.1.0.0">
                       <source src={s3Source} type="video/mp4" />
                     </video>
                   </div>

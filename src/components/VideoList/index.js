@@ -30,12 +30,17 @@ class VideoList extends React.Component {
         <div className="pure-u-1 pure-u-md-1">
             {
               videoList.map((video, index) => {
-                const {_id, s3Source, description} = video
+                const {_id, s3Source, description, originThumb, fbPageName, fbPageId} = video
+
                 return <ListItem
                   key={index}
                   _id={_id}
                   s3Source={s3Source}
-                  description={description}/>
+                  originThumb={originThumb}
+                  description={description}
+                  fbPageName={fbPageName}
+                  fbPageId={fbPageId}
+                  />
               })
             }
         </div>
