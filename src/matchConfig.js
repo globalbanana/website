@@ -11,6 +11,11 @@ const matchConfig = [
     initState: JsonAPI.initState
   },
   {
+    path: '/videos?sort=:sort&page=:page',
+    component: VideoList,
+    initState: VideoList.initState
+  },
+  {
     path: '/videos',
     component: VideoList,
     initState: VideoList.initState

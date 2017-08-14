@@ -6,10 +6,13 @@ const router = express.Router()
 router.get('/videos', (req, res) => {
   const initLimit = 20
   const initSkip = 0
+  const initSortBy = '-createdAt'
 
   const limit = req.query.limit ? JSON.parse(req.query.limit) : initLimit
   const skip = req.query.skip ? JSON.parse(req.query.skip) : initSkip
-  videoList({limit, skip}).then(
+  const sort = req.query.sort ? req.query.sort : initSortBy
+
+  videoList({limit, skip, sort}).then(
     result => res.json(result),
     err => res.json(err)
   )

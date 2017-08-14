@@ -50,7 +50,12 @@ function renderStoreRouter(store, req, res) {
       <StaticRouter location={req.url} context={context}>
         <Switch>
           {
-            matchConfig.map((route, index) => <Route key={`route${index}`} {...route} />)
+            matchConfig.map(
+              (route, index) => {
+                {/* console.log('-------- req.url: ', req.url) */}
+                return <Route key={`route${index}`} {...route} />
+              }
+            )
           }
         </Switch>
       </StaticRouter>

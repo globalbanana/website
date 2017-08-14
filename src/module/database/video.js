@@ -96,9 +96,8 @@ export function getList (payload = {}, field={}) {
 export function getDetail (id) {
   return new Promise((resolve, reject) => {
     const _mongoose = global.DBInstance
-
     const Video = _mongoose.model('Video', VideoObject)
-    const query = Video.findOne({id})
+    const query = Video.findOne({_id: id})
     query.exec(function (err, vObj) {
       if (err) reject(err)
       resolve(vObj)

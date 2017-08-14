@@ -16,7 +16,7 @@ initDB()
 
 let videoId = ''
 
-test('GET: /videos', (done) => {
+test('GET: /videos?limit=20&skip=0', (done) => {
     request(app)
     .get('/videos?limit=20&skip=0')
     .expect(200)
@@ -25,7 +25,23 @@ test('GET: /videos', (done) => {
         videoId = res.body[0]._id
         done()
     });
+})
 
+test('GET: /videos', (done) => {
+    request(app)
+    .get('/videos?sort="-description"')
+    .expect(200)
+    .end(function(err, res) {
+        if (err) throw err;        
+        let pre = null
+        res.body.forEach((vObj) => {
+            const cur = vObj.description[0]
+            if(pre)
+               expect( cur > pre).toBe(false)
+            pre = cur
+        })
+        done()
+    });
 })
 
 test('GET: /videos/:id', (done) => {
