@@ -1,12 +1,10 @@
 import { combineReducers } from 'redux'
-import hello from './hello'
-import jsonAPI from './jsonAPI'
 import dataBase from './dataBase'
+import setting from './setting'
 
 const reducer = combineReducers({
   dataBase,
-  jsonAPI,
-  hello
+  setting
 })
 
 export default reducer
