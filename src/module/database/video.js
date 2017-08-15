@@ -105,7 +105,6 @@ export function getDetail (id) {
   })
 }
 
-
 export function count () {
   return new Promise((resolve, reject) => {
     const _mongoose = global.DBInstance
@@ -114,6 +113,18 @@ export function count () {
     Video.count({}, function (err, count) {  
       if (err) reject(err)
       resolve(count)
+    });
+  })
+}
+
+export function update (condition, payload) {
+  return new Promise((resolve, reject) => {
+    const _mongoose = global.DBInstance
+    const Video = _mongoose.model('Video', VideoObject)
+
+    Video.findOneAndUpdate(condition,  payload, function (err, vObj) {        
+      if (err) reject(err)
+      resolve()
     });
   })
 }
