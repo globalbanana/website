@@ -12,6 +12,7 @@ class VideoList extends React.Component {
 
   render() {
     const {videoList} = this.props
+    const {page, sort} = this.props.setting
 
     return (
       <div className="pure-g">
@@ -24,18 +25,22 @@ class VideoList extends React.Component {
 
 
         <div className="pure-u-1 pure-u-md-1">
+          <Pagination sort={sort} page={page}/>
+        </div>
+
+        <div className="pure-u-1 pure-u-md-1">
           <ToolBar />
         </div>
 
         <div className="pure-u-1 pure-u-md-1">
             {
               videoList.map((video, index) => {
-                const {_id, s3Source, description, originThumb, fbPageName, fbPageId} = video
-
+                const {_id, title, s3Source, description, originThumb, fbPageName, fbPageId} = video
                 return <ListItem
                   key={index}
                   _id={_id}
                   s3Source={s3Source}
+                  title={title}
                   originThumb={originThumb}
                   description={description}
                   fbPageName={fbPageName}
@@ -46,7 +51,7 @@ class VideoList extends React.Component {
         </div>
 
         <div className="pure-u-1 pure-u-md-1">
-          <Pagination />
+          <Pagination sort={sort} page={page}/>
         </div>
       </div>
     )

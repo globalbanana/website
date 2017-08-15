@@ -3,11 +3,12 @@ import { connect } from 'react-redux'
 import VideoList from './../components/VideoList'
 import api from '../actions/api'
 import globalStyle from '../styles/global.css'
-import {VIDEO_LIST} from '../config/actionType'
+import {VIDEO_LIST,SET_LIMIT, SET_SKIP, SET_SORT, SET_PAGE} from '../config/actionType'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    videoList: state.dataBase.videoList
+    videoList: state.dataBase.videoList,
+    setting: state.setting
   }
 }
 
@@ -26,18 +27,23 @@ const videoList = connect(
 
 videoList.initState = (store, req, res) => {
   return (dispatch, getState) => {
-      console.log('getVideoList ......................')
+      console.log('getVideoList ...................... 0')
 
-      const {page, sort} = req.query
+      let {page, sort = '-createdAt'} = req.query
+
+      page = (page)? JSON.parse(page) : 1
 
       const PAGE_LIMIT = 10
       const limit = PAGE_LIMIT * page
       const skip = PAGE_LIMIT * (page-1)
-      const _sort = sort || '-createdAt'
 
-      return api.getVideoList({limit, skip, _sort}).then(
+      return api.getVideoList({limit, skip, sort}).then(
         (list) => {
           dispatch({type: VIDEO_LIST, list})
+          dispatch({type: SET_LIMIT, limit})
+          dispatch({type: SET_SKIP, skip})
+          dispatch({type: SET_SORT, sort})
+          dispatch({type: SET_PAGE, page})
           return Promise.resolve()
         }
       )
@@ -46,43 +52,3 @@ videoList.initState = (store, req, res) => {
 
 
 export default videoList
-
-// import { connect } from 'react-redux'
-// import VideoList from './../components/VideoList'
-// import dataBaseActionCreator from '../actions/dataBase'
-// import globalStyle from '../styles/global.css'
-
-// const mapStateToProps = (state, ownProps) => {
-//   console.log('state: ', state)
-//   return {
-//     videoList: state.dataBase
-//   }
-// }
-
-// const mapDispatchToProps = (dispatch, ownProps) => {
-//   return {
-//     onclick: function() {
-//       console.log('click')
-//     }
-//   }
-// }
-
-// const videoList = connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(VideoList)
-
-// videoList.initState = (store, req, res) => {
-//   return (dispatch, getState) => {
-//     return new Promise((resolve, reject) => {
-//       console.log('getVideoList ......................')
-//       const limit = 20
-//       const skip = 0
-//       return dispatch(dataBaseActionCreator.getVideoList({limit, skip}))
-//       resolve()
-//     })
-//   }
-// }
-
-
-// export default videoList

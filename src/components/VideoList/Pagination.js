@@ -6,23 +6,38 @@ import style from './Pagination.css'
 
 class Pagination extends React.Component {
     render() {
+        const {page, sort} = this.props
+        const count = 20
+        
+        const renderPage = (count, page) => {
+            let returnData = []
+
+            for(let i =1 ;i<count; i++){
+                const url = `/videos?sort=${sort}&page=${i}`
+                if(i === page)
+                    returnData.push(<a href={url} key={i} className={classNames(style['active'])}>{i}</a>)
+                else 
+                    returnData.push(<a href={url} key={i}>{i}</a>)
+            }
+
+            return returnData
+        }
+        
+
        return (
             <div className={classNames(style['pagination'])}>
-            <a href="#">&laquo;</a>
-            <a href="#">1</a>
-            <a href="#" className="active">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">5</a>
-            <a href="#">6</a>
-            <a href="#">&raquo;</a>
+                <a href={`/videos?sort=${sort}&page=${page-1}`}> &laquo; </a>
+                {renderPage (count, page)}
+                <a href={`/videos?sort=${sort}&page=${page+1}`}> &raquo; </a>
             </div>
        )
     }
 }
 
 Pagination.propTypes = {
-    
+  page: PropTypes.number.isRequired,
+  sort: PropTypes.string.isRequired,
+  count: PropTypes.object
 }
 
 export default Pagination

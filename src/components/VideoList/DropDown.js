@@ -13,8 +13,6 @@ class DropDown extends React.Component {
             {title: 'createdAt', link: '/'}
         ]
 
-        console.log('this.props.match: ', this.props.match)
-
        return (
         <div className={classNames(style['dropdown'])}>
             <button className={classNames(style['dropbtn'])}>

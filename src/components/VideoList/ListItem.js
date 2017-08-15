@@ -12,7 +12,7 @@ class ListItem extends React.Component {
   // }
 
   render() {
-    const {s3Source, description, originThumb, fbPageName, fbPageId} = this.props
+    const {s3Source, description, originThumb, fbPageName, fbPageId, title} = this.props
     const pageLink = `https://facebook.com/${fbPageId}`
 
     return (
@@ -23,7 +23,7 @@ class ListItem extends React.Component {
               <div className="pure-u-1-2">
                   <header> 
                     <h2 className={classNames(style['h2Description'])}> 
-                      {description} 
+                      {title} 
                     </h2>
 
                     <a className={classNames(style['pageButton'] ,"pure-button" )}
@@ -54,7 +54,8 @@ class ListItem extends React.Component {
 ListItem.propTypes = {
   _id: PropTypes.string.isRequired,
   s3Source: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  description: PropTypes.string,
+  title: PropTypes.string,
 }
 
 export default ListItem
