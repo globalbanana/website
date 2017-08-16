@@ -3,6 +3,16 @@ import querystring from 'querystring'
 
 const port = process.env.PORT || 3000
 
+
+const genSameOriginOption = (payload, isPut) => {
+  return {
+    method: (isPut)?'PUT' :'POST',
+    credentials: 'same-origin',
+    body: JSON.stringify(payload),
+    headers: {'Content-Type': 'application/json'}
+  }
+}
+
 const actionCreator = {
   getVideoList: ({limit, skip, sort}) => {
     console.log('*_*_*_* getVideoList *_*_*_*_*')
@@ -25,15 +35,17 @@ const actionCreator = {
     )
   },
   updateVideo: (id, payload) => {
-    return (
-      fetch(`http://localhost:${port}/ajax/videos/${id}`,{
-        method: 'PUT',
-        body: payload
-      })
-      .then(response => {
-        return response.json()
-      })
-    )
+    return (dispatch, getState) => {
+
+      const option = genSameOriginOption(payload, true)
+
+      return fetch(`/ajax/videos/${id}`,option)
+      .then(
+        response => {
+          return Promise.resolve
+        }
+      )
+    }
   }
 }
 

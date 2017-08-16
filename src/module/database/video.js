@@ -16,7 +16,7 @@ var VideoObject = new Schema({
   s3Source: { type: String, required: true },
   likes: { type: Object },
   videoLength: { type: Object },
-  rate: { type: Number },
+  status: { type: String },
   originPage: { type: String },
   originThumb: { type: String },
   createdAt: { type: Date, default: Date.now },

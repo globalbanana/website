@@ -5,6 +5,8 @@ import api from '../actions/api'
 import globalStyle from '../styles/global.css'
 import {SET_TOTAL_VIDEO, VIDEO_LIST, SET_LIMIT, SET_SKIP, SET_SORT, SET_PAGE} from '../config/actionType'
 
+import {PAGE_LIMIT} from '../config/env'
+
 const mapStateToProps = (state, ownProps) => {
   return {
     videoList: state.dataBase.videoList,
@@ -14,9 +16,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    // onClick: () => {
-    //   dispatch(helloActionCreator.helloWorld());
-    // }
+    updateVideo: (id, payload) => {      
+      return dispatch(api.updateVideo(id, payload));
+    }
   }
 }
 
@@ -33,7 +35,6 @@ videoList.initState = (store, req, res) => {
 
     page = page ? JSON.parse(page) : 1
 
-    const PAGE_LIMIT = 10
     const limit = PAGE_LIMIT * page
     const skip = PAGE_LIMIT * (page - 1)
 

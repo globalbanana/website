@@ -6,12 +6,9 @@ import Pagination from './Pagination'
 // import style from './index.css'
 
 class VideoList extends React.Component {
-  // constructor (props) {
-  //   super(props)
-  // }
 
   render() {
-    const {videoList} = this.props
+    const {videoList, updateVideo} = this.props
     const {page, sort, totalVideo} = this.props.setting
     const textAlignStyle = {textAlign: 'center'}
 
@@ -36,17 +33,13 @@ class VideoList extends React.Component {
         <div className="pure-u-1 pure-u-md-1">
           {
             videoList.map((video, index) => {
-              const {_id, title, s3Source, description, originThumb, fbPageName, fbPageId} = video
-              return <ListItem
-                key={index}
-                _id={_id}
-                s3Source={s3Source}
-                title={title}
-                originThumb={originThumb}
-                description={description}
-                fbPageName={fbPageName}
-                fbPageId={fbPageId}
-              />
+              if(video){
+                return <ListItem
+                  key={index}
+                  video={video}
+                  updateVideo={updateVideo}
+                />
+              }
             })
           }
         </div>
@@ -62,6 +55,7 @@ class VideoList extends React.Component {
 
 
 VideoList.propTypes = {
+  updateVideo: PropTypes.func.isRequired,
   // videoList: PropTypes.object.isRequired,
 //   products: PropTypes.array.isRequired
 }

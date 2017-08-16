@@ -73,7 +73,7 @@ test('GET: /system', (done) => {
 test('GET: /videos/:id', (done) => {
 
     const randomStr= randomString()
-    const payload = JSON.stringify({title: randomStr})
+    const payload = JSON.stringify({newTitle: randomStr})
 
     request(app)
     .put(`/videos/${videoId}?payload=${payload}`)
@@ -81,7 +81,7 @@ test('GET: /videos/:id', (done) => {
     .end(function(err, res) {
         videoDetail(videoId).then(
             (detail) => {
-                expect(detail.title).toBe(randomStr)
+                expect(detail.newTitle).toBe(randomStr)
                 done()
             }
         )

@@ -1,7 +1,10 @@
 import express from 'express'
 import {videoList, videoDetail, videoCount, videoUpdate} from '../../src/module/database'
+var bodyParser = require('body-parser')
 
 const router = express.Router()
+
+router.use(bodyParser.json())
 
 router.get('/videos', (req, res) => {
   const initLimit = 20
@@ -29,11 +32,8 @@ router.get('/videos/:id', (req, res) => {
 
 router.put('/videos/:id', (req, res) => {
   const videoId = req.params.id
-  const payload = (req.query.payload)
-                    ?JSON.parse(req.query.payload)
-                    :null
-  
   const condition = {_id: videoId}
+  const payload = (req.body)
 
   videoUpdate(condition, payload).then(
     result => res.json(result),
