@@ -1,4 +1,4 @@
-import { SET_LIMIT, SET_SKIP, SET_SORT, SET_PAGE } from '../config/actionType'
+import { SET_LIMIT, SET_SKIP, SET_SORT, SET_PAGE, SET_TOTAL_VIDEO } from '../config/actionType'
 
 const setting = (state = {}, action) => {
   switch (action.type) {
@@ -13,15 +13,20 @@ const setting = (state = {}, action) => {
         skip: action.skip
       }
     case SET_SORT:
-        return {
+      return {
         ...state,
         sort: action.sort
-        }
+      }
+    case SET_TOTAL_VIDEO:
+      return {
+        ...state,
+        totalVideo: action.totalVideo
+      }
     case SET_PAGE:
-        return {
+      return {
         ...state,
         page: action.page
-        }
+      }
     default:
       return state
   }

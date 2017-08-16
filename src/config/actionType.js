@@ -9,5 +9,5 @@ export const SET_LIMIT = 'SET_LIMIT'
 export const SET_SKIP = 'SET_SKIP'
 export const SET_SORT = 'SET_SORT'
 export const SET_PAGE = 'SET_PAGE'
-
+export const SET_TOTAL_VIDEO = 'SET_TOTAL_VIDEO'
 
