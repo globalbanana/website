@@ -4,7 +4,9 @@ import express from 'express'
 import bodyParser from 'body-parser'
 
 import ajaxMiddleware from '../../src/middleware/ajax'
-import {initDB} from '../../src/module/database'
+import {initDB,videoDetail} from '../../src/module/database'
+
+import {randomString} from '../../src/util/random'
 
 const app = express();
  
@@ -64,5 +66,24 @@ test('GET: /system', (done) => {
         if (err) throw err;
         expect(typeof res.body.count).toBe('number')
         done()
+    });
+})
+
+
+test('GET: /videos/:id', (done) => {
+
+    const randomStr= randomString()
+    const payload = JSON.stringify({title: randomStr})
+
+    request(app)
+    .put(`/videos/${videoId}?payload=${payload}`)
+    .expect(200)
+    .end(function(err, res) {
+        videoDetail(videoId).then(
+            (detail) => {
+                expect(detail.title).toBe(randomStr)
+                done()
+            }
+        )
     });
 })

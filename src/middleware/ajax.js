@@ -1,5 +1,5 @@
 import express from 'express'
-import {videoList, videoDetail, videoCount} from '../../src/module/database'
+import {videoList, videoDetail, videoCount, videoUpdate} from '../../src/module/database'
 
 const router = express.Router()
 
@@ -21,6 +21,21 @@ router.get('/videos', (req, res) => {
 router.get('/videos/:id', (req, res) => {
   const videoId = req.params.id
   videoDetail(videoId).then(
+    result => res.json(result),
+    err => res.json(err)
+  )
+})
+
+
+router.put('/videos/:id', (req, res) => {
+  const videoId = req.params.id
+  const payload = (req.query.payload)
+                    ?JSON.parse(req.query.payload)
+                    :null
+  
+  const condition = {_id: videoId}
+
+  videoUpdate(condition, payload).then(
     result => res.json(result),
     err => res.json(err)
   )
