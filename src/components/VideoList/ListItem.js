@@ -12,7 +12,8 @@ class ListItem extends React.Component {
   // }
 
   render() {
-    const {s3Source, description, originThumb, fbPageName, fbPageId, title} = this.props
+    const {updateVideo, video} = this.props
+    const {s3Source, description, originThumb, fbPageName, fbPageId, title, fbId} = video
     const pageLink = `https://facebook.com/${fbId}`
 
     return (
@@ -31,7 +32,6 @@ class ListItem extends React.Component {
                   {fbPageName}
                 </a>
 
-
               </header>
 
               <div>
@@ -41,7 +41,10 @@ class ListItem extends React.Component {
               </div>
             </div>
             <div className="pure-u-1-2">
-              <VideoForm />
+              <VideoForm 
+                video = {video}
+                updateVideo = {updateVideo}
+              />
             </div>
           </div>
         </section>
@@ -52,10 +55,7 @@ class ListItem extends React.Component {
 
 
 ListItem.propTypes = {
-  _id: PropTypes.string.isRequired,
-  s3Source: PropTypes.string.isRequired,
-  description: PropTypes.string,
-  title: PropTypes.string,
+  video: PropTypes.object.isRequired
 }
 
 export default ListItem
