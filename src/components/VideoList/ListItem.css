@@ -1,20 +1,4 @@
 
-.row {
-    /* max-height: 600px; */
-    margin: 50px 20px;
-    padding: 20px;
-    background: #f9f9f9;
-}
-
-.content-subhead{
-    text-transform: uppercase;
-    color: #aaa;
-    border-bottom: 1px solid #eee;
-    padding: 0.4em 0;
-    font-size: 80%;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-}
 
 .videoStyle {
     max-width: 100%;
@@ -30,4 +14,8 @@
     background: #3b5998;
     margin-left: 40px;
     color: #ffffff;
+}
+
+.padding20px {
+    padding: 20px
 }

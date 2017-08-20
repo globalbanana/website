@@ -3,7 +3,18 @@ import { connect } from 'react-redux'
 import VideoList from './../components/VideoList'
 import api from '../actions/api'
 import globalStyle from '../styles/global.css'
-import {SET_TOTAL_VIDEO, VIDEO_LIST, SET_LIMIT, SET_SKIP, SET_SORT, SET_PAGE} from '../config/actionType'
+import {
+  SET_TOTAL_VIDEO, 
+  VIDEO_LIST, 
+  SET_LIMIT, 
+  SET_SKIP, 
+  SET_SORT, 
+  SET_PAGE,
+  TURN_ON_LOADING,
+  TURN_OFF_LOADING,
+  CLEAN_ALERT_MESSAGE,
+  SET_ALERT_MESSAGE
+} from '../config/actionType'
 
 import {PAGE_LIMIT} from '../config/env'
 
@@ -18,6 +29,22 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     updateVideo: (id, payload) => {      
       return dispatch(api.updateVideo(id, payload));
+    },
+    turnOnLoading: () => {
+      return dispatch({ type: TURN_ON_LOADING })
+    },
+    turnOffLoading: () => {
+      return dispatch({ type: TURN_OFF_LOADING })
+    },
+    setAlertMessage: (alertMessage, isAlertSuccess = false) => {
+      return dispatch({
+        type: SET_ALERT_MESSAGE,
+        alertMessage,
+        isAlertSuccess
+      })
+    },
+    clearnAlertMessage: () => {
+      return dispatch({ type: CLEAN_ALERT_MESSAGE })
     }
   }
 }

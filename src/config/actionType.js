@@ -11,3 +11,8 @@ export const SET_SORT = 'SET_SORT'
 export const SET_PAGE = 'SET_PAGE'
 export const SET_TOTAL_VIDEO = 'SET_TOTAL_VIDEO'
 
+export const TURN_OFF_LOADING = 'TURN_OFF_LOADING'
+export const TURN_ON_LOADING = 'TURN_ON_LOADING'
+
+export const SET_ALERT_MESSAGE = 'SET_ALERT_MESSAGE'
+export const CLEAN_ALERT_MESSAGE = 'CLEAN_ALERT_MESSAGE'

@@ -11,10 +11,6 @@ class Pagination extends React.Component {
     const {page, sort, totalVideo} = this.props
     const count = Math.ceil(totalVideo/PAGE_LIMIT) +1
 
-    console.log('totalVideo: ', totalVideo)
-    console.log('PAGE_LIMIT: ', PAGE_LIMIT)
-    console.log('count: ', count)
-
     const renderPage = (count, page) => {
       let returnData = []
 
@@ -36,7 +32,7 @@ class Pagination extends React.Component {
         {(page !== (1) )?
           <a href={`/videos?sort=${sort}&page=${page - 1}`}> &laquo; </a>
           :null}
-          
+
         {renderPage(count, page)}
         
         {(page !== (count-1) )

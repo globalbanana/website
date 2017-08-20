@@ -1,8 +1,34 @@
 
+
+.formTop {
+    margin-top: 20px;
+    text-align: right;
+}
+
+
 .videoForm{
-    margin-top: 100px;
+    margin-top: 0px;
 }
 
 .videoFormButton{
     margin-left: 70%;
+}
+
+
+.margin20px {
+    margin-top: 20px;
+}
+
+.createAtStyle{
+    display: inline;
+    font-size: small;
+    color: lightgrey;
+}
+.inlineStyle{
+    display: inline;
+}
+.bin{
+    width: 20px;
+    height: 20px;
+    margin: 0px 20px;
 }
