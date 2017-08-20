@@ -5,9 +5,19 @@ import express from 'express'
 import ajax from './middleware/ajax'
 import {initDB} from './module/database'
 
+var cookieParser = require('cookie-parser')
+
+
 const app = express()
+app.use(cookieParser())
 const port = process.env.PORT || 3000
 initDB()
+
+
+app.use((req, res, next) => {
+  console.log('req.cookies.fbAccessToken: ', req.cookies.fbAccessToken)
+  next()  
+})
 
 require('css-modules-require-hook')({
   generateScopedName: '[name]__[local]___[hash:base64:5]'
