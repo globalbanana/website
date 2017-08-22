@@ -1,6 +1,6 @@
 
 const AWS = require('aws-sdk')
-const awsConfig = require('../config.json')
+const awsConfig = require('../../config.json')
 AWS.config.loadFromPath('./config.json')
 
 const s3 = new AWS.S3({apiVersion: '2006-03-01'})
