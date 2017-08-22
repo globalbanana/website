@@ -22,7 +22,8 @@ class VideoList extends React.Component {
         turnOffLoading,
         setting,
         setAlertMessage,
-        clearnAlertMessage 
+        clearnAlertMessage,
+        uploadDocumentRequest
       } = this.props
     const {page, sort, totalVideo, isLoading, alertMessage, isAlertSuccess} = setting
     const textAlignStyle = {textAlign: 'center'}
@@ -72,6 +73,7 @@ class VideoList extends React.Component {
                               <VideoForm 
                                 video = {video}
                                 updateVideo = {updateVideo}
+                                uploadDocumentRequest= {uploadDocumentRequest}
                                 turnOnLoading={turnOnLoading}
                                 turnOffLoading={turnOffLoading}
                                 setAlertMessage={setAlertMessage}
@@ -98,6 +100,7 @@ class VideoList extends React.Component {
 
 VideoList.propTypes = {
   updateVideo: PropTypes.func.isRequired,
+  uploadDocumentRequest: PropTypes.func.isRequired,
   turnOnLoading: PropTypes.func.isRequired,
   turnOffLoading: PropTypes.func.isRequired,
   setAlertMessage: PropTypes.func.isRequired,

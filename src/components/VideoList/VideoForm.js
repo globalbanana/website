@@ -23,6 +23,7 @@ class VideoForm extends React.Component {
     this.updateTitle = this.updateTitle.bind(this)
     this.updateDescription = this.updateDescription.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
+    this.binClick = this.binClick.bind(this)
   }
 
   updateTitle (val) {
@@ -40,6 +41,9 @@ class VideoForm extends React.Component {
     })
   }
 
+  binClick () {
+    console.log(' -------- bin click')
+  }
   onSubmit (e) {
     e.preventDefault()
     
@@ -75,11 +79,12 @@ class VideoForm extends React.Component {
   }
   
   render () {
-    const {newTitle, newDescription, id} = this.state
-    const {video, setAlertMessage} = this.props
+    const {newTitle, newDescription} = this.state
+    const {video, turnOnLoading, turnOffLoading, setAlertMessage, uploadDocumentRequest} = this.props
     
-    const {createdAt} = video
-    
+    const {createdAt, _id} = video
+    const dateFormated = dateMDY(createdAt)
+        
     return (
           <div className={classNames(style['margin20px'])}>
 
@@ -87,10 +92,12 @@ class VideoForm extends React.Component {
               
               <div className={classNames(style['formTop'])}>
                 <span className={classNames(style['createAtStyle'])} >
-                  CreatedAt: {dateMDY(createdAt)}
+                  CreatedAt: {dateFormated}
                 </span>
                 <span className={classNames(style['inlineStyle'])} >
-                  <img src="/bin.png" alt="Bin"  className={classNames(style['bin'])}/>
+                  <a href='#' onClick={this.binClick}>
+                    <img src="/bin.png" alt="Bin"  className={classNames(style['bin'])}/>
+                  </a>
                 </span>
               </div>
               
@@ -108,6 +115,12 @@ class VideoForm extends React.Component {
                 />
 
                 <S3Uploader
+                  uploadDocumentRequest={uploadDocumentRequest}
+                  videoId = {_id}
+                  dateFormated = {dateFormated}
+                  turnOnLoading = {turnOnLoading}
+                  turnOffLoading = {turnOffLoading}
+                  setAlertMessage ={setAlertMessage}
                 />
                 <div className="pure-controls">
                   <label htmlFor="cb" className="pure-checkbox">
@@ -124,6 +137,7 @@ class VideoForm extends React.Component {
 
 VideoForm.propTypes = {
   updateVideo: PropTypes.func.isRequired,  
+  uploadDocumentRequest: PropTypes.func.isRequired,
   turnOnLoading: PropTypes.func.isRequired,
   turnOffLoading: PropTypes.func.isRequired,
   setAlertMessage: PropTypes.func.isRequired,

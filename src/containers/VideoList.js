@@ -2,6 +2,7 @@
 import { connect } from 'react-redux'
 import VideoList from './../components/VideoList'
 import api from '../actions/api'
+import {uploadDocumentRequest} from '../actions/fileUpload'
 import globalStyle from '../styles/global.css'
 import {
   SET_TOTAL_VIDEO, 
@@ -43,6 +44,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         isAlertSuccess
       })
     },
+    uploadDocumentRequest: ({ file, name }) => {
+      return dispatch(uploadDocumentRequest({ file, name }))      
+    },
     clearnAlertMessage: () => {
       return dispatch({ type: CLEAN_ALERT_MESSAGE })
     }
@@ -62,8 +66,8 @@ videoList.initState = (store, req, res) => {
 
     page = page ? JSON.parse(page) : 1
 
-    const limit = PAGE_LIMIT * page
-    const skip = PAGE_LIMIT * (page - 1)
+    const limit = PAGE_LIMIT
+    const skip = (PAGE_LIMIT * page) - 1
 
     return Promise.all([
       api.getVideoCount(),
