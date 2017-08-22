@@ -1,7 +1,11 @@
 import express from 'express'
 import {videoList, videoDetail, videoCount, videoUpdate} from '../../src/module/database'
-var bodyParser = require('body-parser')
+import {uploadLocalFile} from '../../src/module/s3'
 
+const multiparty = require('multiparty');
+const fs = require('fs');
+
+var bodyParser = require('body-parser')
 const router = express.Router()
 
 router.use(bodyParser.json())
@@ -46,6 +50,33 @@ router.get('/system', (req, res) => {
     count => res.json({count}),
     err => res.json(err)
   )
+})
+
+
+const downloadFileToLocal = (fromPath, toPath) => 
+  new Promise( (resolve, reject) => {
+    fs.readFile(fromPath, (err, data) => {
+      fs.writeFile(toPath, data, (err) => {
+        fs.unlink(fromPath, () => {
+          resolve()
+        });
+      }); 
+    }); 
+  })
+
+router.post('/upload', (req, res) => {
+  let form = new multiparty.Form();
+
+  form.parse(req, (err, fields, files) => {
+    let {path: tempPath, originalFilename} = files.file[0];
+    let copyToPath = "./download/" + originalFilename;
+
+    downloadFileToLocal (tempPath, copyToPath).then(
+      () => uploadLocalFile(copyToPath)
+    ).then(
+      result => res.json({success: result})
+    )
+  })
 })
 
 export default router
