@@ -16,16 +16,26 @@ class VideoForm extends React.Component {
     this.state = {
       changeTitle: false,
       changeDescription: false,
+      changeVideo: false,
       newTitle: props.video.newTitle || '',
+      editedSource: props.video.editedSource || '',
       newDescription: props.video.newDescription || ''
     }
 
     this.updateTitle = this.updateTitle.bind(this)
+    this.updateVideo = this.updateVideo.bind(this)
     this.updateDescription = this.updateDescription.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
     this.binClick = this.binClick.bind(this)
   }
 
+  updateVideo (val) {
+    // console.log(' ------------- updateVideo: ', val)
+    this.setState({
+      editedSource: val,
+      changeVideo: true
+    })
+  }
   updateTitle (val) {
     // console.log(' ------------- updateTitle: ', val)
     this.setState({
@@ -47,21 +57,23 @@ class VideoForm extends React.Component {
   onSubmit (e) {
     e.preventDefault()
     
-    const {updateVideo, video, turnOnLoading, turnOffLoading, setAlertMessage} = this.props
-    const {changeTitle, changeDescription, newTitle, newDescription} = this.state
+    const {updateVideoAction, video, turnOnLoading, turnOffLoading, setAlertMessage} = this.props
+    const {changeTitle, changeVideo, changeDescription, newTitle, newDescription, editedSource} = this.state
     const {_id} = video
-
-    if(!changeTitle && !changeDescription){
+    
+    if(!changeVideo && !changeTitle && !changeDescription){
       return
     }
     else {
+
       let payload = {}
       if(changeTitle) payload['newTitle'] = newTitle
+      if(changeVideo) payload['editedSource'] = editedSource
       if(changeDescription) payload['newDescription'] = newDescription
 
       turnOnLoading()
 
-      updateVideo(_id, payload).then(
+      updateVideoAction(_id, payload).then(
         ()=> {
           console.log('update done: ', _id)
           var isAlertSuccess = true;
@@ -121,6 +133,7 @@ class VideoForm extends React.Component {
                   turnOnLoading = {turnOnLoading}
                   turnOffLoading = {turnOffLoading}
                   setAlertMessage ={setAlertMessage}
+                  onChange={this.updateVideo}
                 />
                 <div className="pure-controls">
                   <label htmlFor="cb" className="pure-checkbox">
@@ -136,7 +149,7 @@ class VideoForm extends React.Component {
 }
 
 VideoForm.propTypes = {
-  updateVideo: PropTypes.func.isRequired,  
+  updateVideoAction: PropTypes.func.isRequired,  
   uploadDocumentRequest: PropTypes.func.isRequired,
   turnOnLoading: PropTypes.func.isRequired,
   turnOffLoading: PropTypes.func.isRequired,

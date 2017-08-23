@@ -28,7 +28,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    updateVideo: (id, payload) => {      
+    updateVideoAction: (id, payload) => {      
       return dispatch(api.updateVideo(id, payload));
     },
     turnOnLoading: () => {
