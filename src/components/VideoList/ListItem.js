@@ -12,8 +12,18 @@ class ListItem extends React.Component {
 
   render() {
     const {video} = this.props
-    const {s3Source, description, originThumb, fbPageName, fbPageId, title, fbId, createdAt} = video
+    const {s3Source, editedSource, description, originThumb, fbPageName, fbPageId, title, fbId, createdAt} = video
     const pageLink = `https://facebook.com/${fbId}`
+
+    const renderEditedButton = () => {
+      if(editedSource) {
+        return (<a className={classNames(style['editedVideoButton'], 'pure-button')}
+                  href = {editedSource}
+                  target="_blank">
+                  Edited Video
+                </a>)
+      }  
+    }
 
     return (
             <div className={classNames(style['padding20px'])}>
@@ -23,17 +33,20 @@ class ListItem extends React.Component {
                 </h2>
 
                 <a className={classNames(style['pageButton'], 'pure-button')}
-                  href = {pageLink}>
+                  href = {pageLink}
+                  target="_blank">
                   {fbPageName}
                 </a>
-
               </header>
 
               <div>
                 <video className={classNames(style['videoStyle'])} controls poster={originThumb} preload="none" autoPlay="" loop="" muted="" data-reactid=".0.1.0.0">
-                  <source src={s3Source} type="video/mp4" />
+                  <source src={s3Source} type="video/mp4" />                  
                 </video>
               </div>
+
+              {renderEditedButton()}
+
             </div>
     )
   }

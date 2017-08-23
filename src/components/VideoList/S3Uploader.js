@@ -12,6 +12,7 @@ class S3Uploader extends React.Component {
   }
 
   handleFileUpload( event ) {
+    const {onChange} = this.props    
     const removeStash = (str) => str.replace(new RegExp('/', 'g'), '')
     
     const files = event.target.files;
@@ -27,13 +28,15 @@ class S3Uploader extends React.Component {
     }).then(res => {
         const isAlertSuccess = true
         turnOffLoading()    
-        setAlertMessage(res.success, isAlertSuccess)      
+        setAlertMessage(res.url, isAlertSuccess)     
+        onChange(res.url)
     })
   }
 
   render() {
     return (
       <div className="pure-control-group">
+            <label > Edited Video</label>
             <input type="file" onChange={this.handleFileUpload} />
       </div>
     )

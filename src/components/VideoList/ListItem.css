@@ -16,6 +16,13 @@
     color: #ffffff;
 }
 
+.editedVideoButton {
+    background: #FFAA00;
+    margin-left: 40px;
+    color: #FFFF73;
+    font-size: 85%;
+}
+
 .padding20px {
     padding: 20px
 }
