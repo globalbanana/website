@@ -74,7 +74,7 @@ router.post('/upload', (req, res) => {
     downloadFileToLocal (tempPath, copyToPath).then(
       () => uploadLocalFile(copyToPath)
     ).then(
-      result => res.json({success: result})
+      result => res.json({url: result})
     )
   })
 })
