@@ -17,7 +17,7 @@ class VideoList extends React.Component {
   render() {
     const {
         videoList,
-        updateVideo,
+        updateVideoAction,
         turnOnLoading,
         turnOffLoading,
         setting,
@@ -72,7 +72,7 @@ class VideoList extends React.Component {
                             <div className="pure-u-1-2">
                               <VideoForm 
                                 video = {video}
-                                updateVideo = {updateVideo}
+                                updateVideoAction = {updateVideoAction}
                                 uploadDocumentRequest= {uploadDocumentRequest}
                                 turnOnLoading={turnOnLoading}
                                 turnOffLoading={turnOffLoading}
@@ -99,7 +99,7 @@ class VideoList extends React.Component {
 
 
 VideoList.propTypes = {
-  updateVideo: PropTypes.func.isRequired,
+  updateVideoAction: PropTypes.func.isRequired,
   uploadDocumentRequest: PropTypes.func.isRequired,
   turnOnLoading: PropTypes.func.isRequired,
   turnOffLoading: PropTypes.func.isRequired,
