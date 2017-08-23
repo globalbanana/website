@@ -80,7 +80,7 @@ function renderFullPage(html, preloadedState) {
       <head>
         <link rel='stylesheet' href="${PURE_CSS}" />
         <link rel='stylesheet' href="${PURE_GRIDS_CSS}" />
-        <title>Redux Hello World</title>
+        <title>Cool Banana</title>
         <link rel="stylesheet" type="text/css" href=${bundleCSS}>
       </head>
       <body>
