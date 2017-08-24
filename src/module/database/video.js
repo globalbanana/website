@@ -8,8 +8,9 @@ var VideoObject = new Schema({
   fbPageId: { type: String, required: true },
   title: { type: String },
   newTitle: { type: String },
-  description: { type: String, required: true },
+  description: { type: String },
   newDescription: { type: String },
+  status: { type: String }, //READY, EDITING, PUBLISHED, DELETE
   publishedAt: { type: Date},
   isReady: { type: Boolean },
   source: { type: String, required: true },
@@ -17,8 +18,8 @@ var VideoObject = new Schema({
   editedSource: { type: String},
   likes: { type: Object },
   videoLength: { type: Object },
-  status: { type: String },
-  originPage: { type: String },
+  rate: { type: Number },
+  fbPageName: { type: String },
   originThumb: { type: String },
   createdAt: { type: Date, default: Date.now },
   buff: Buffer
@@ -74,7 +75,7 @@ export function deleteById (id) {
   })
 }
 
-export function getList (payload = {}, field={}) {
+export function getList (payload = {}, field={}, exist={}) {
   return new Promise((resolve, reject) => {
     const _mongoose = global.DBInstance
 
@@ -87,6 +88,14 @@ export function getList (payload = {}, field={}) {
 
     const Video = _mongoose.model('Video', VideoObject)
     const query = Video.find(field, null, _payload)
+
+    Object.keys(exist).forEach(
+      (key) => {
+        query.where(key).exists(exist[key])
+      }
+    )
+
+
     query.exec(function (err, vObjList) {
       if (err) reject(err)
       resolve(vObjList)
@@ -97,6 +106,7 @@ export function getList (payload = {}, field={}) {
 export function getDetail (id) {
   return new Promise((resolve, reject) => {
     const _mongoose = global.DBInstance
+
     const Video = _mongoose.model('Video', VideoObject)
     const query = Video.findOne({_id: id})
     query.exec(function (err, vObj) {
@@ -105,6 +115,7 @@ export function getDetail (id) {
     })
   })
 }
+
 
 export function count () {
   return new Promise((resolve, reject) => {
