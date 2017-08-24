@@ -19,7 +19,13 @@ router.get('/videos', (req, res) => {
   const skip = req.query.skip ? JSON.parse(req.query.skip) : initSkip
   const sort = req.query.sort ? req.query.sort : initSortBy
 
-  videoList({limit, skip, sort}).then(
+  let field= req.query.field ? JSON.parse(req.query.field) : {}
+  const exist= req.query.exist ? JSON.parse(req.query.exist) : {}
+
+
+  field['status'] = {$ne : "DELETED"}
+
+  videoList({limit, skip, sort}, field, exist).then(
     result => res.json(result),
     err => res.json(err)
   )
@@ -33,12 +39,11 @@ router.get('/videos/:id', (req, res) => {
   )
 })
 
-
-router.put('/videos/:id', (req, res) => {
+router.put('/videos/:id', (req, res) => {  
   const videoId = req.params.id
   const condition = {_id: videoId}
   const payload = (req.body)
-
+  
   videoUpdate(condition, payload).then(
     result => res.json(result),
     err => res.json(err)
