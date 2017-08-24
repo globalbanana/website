@@ -14,6 +14,26 @@ import {PAGE_LIMIT} from '../../config/env'
 
 class VideoList extends React.Component {
 
+  constructor (props) {
+    super(props)
+    
+    this.state = {
+      deletedVideoIds: []
+    }
+
+    this.deleteVideo = this.deleteVideo.bind(this)
+  }
+
+  deleteVideo (id) {
+    const _arr = this.state.deletedVideoIds.slice()
+    _arr.push(id)
+    
+    this.setState({
+      ...this.state,
+      deletedVideoIds:_arr
+    })
+  }
+  
   render() {
     const {
         videoList,
@@ -59,7 +79,9 @@ class VideoList extends React.Component {
             <div className="pure-u-1 pure-u-md-1">
               {
                 videoList.map((video, index) => {
-                  if(video){
+                  const isVideoDelete = (this.state.deletedVideoIds.indexOf(video._id) === -1)?false:true
+
+                  if(video && !isVideoDelete){
                     return (
                       <div className={classNames(style['row'])} key={index}>
                         <h1 className={classNames(style['content-subhead'])}> {video.description} </h1>
@@ -77,6 +99,7 @@ class VideoList extends React.Component {
                                 turnOnLoading={turnOnLoading}
                                 turnOffLoading={turnOffLoading}
                                 setAlertMessage={setAlertMessage}
+                                deleteVideo={this.deleteVideo}
                               />
                             </div>
                         </div>

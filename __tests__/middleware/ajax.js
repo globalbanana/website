@@ -29,6 +29,38 @@ test('GET: /videos?limit=20&skip=0', (done) => {
     });
 })
 
+test('GET: /videos`', (done) => {
+    const exist = JSON.stringify({newTitle : false})
+
+    request(app)
+    .get(`/videos?exist=${exist}`)
+    .expect(200)
+    .end(function(err, res) {
+        if (err) throw err;
+        const result = res.body
+        result.forEach( (obj) => {
+            expect(obj.newTitle).toBeUndefined()
+        })
+        done()
+    });
+})
+
+test('GET: /videos`', (done) => {
+    const exist = JSON.stringify({newTitle : true})
+
+    request(app)
+    .get(`/videos?exist=${exist}`)
+    .expect(200)
+    .end(function(err, res) {
+        if (err) throw err;
+        const result = res.body
+        result.forEach( (obj) => {
+            expect(typeof obj.newTitle).toBe('string')
+        })
+        done()
+    });
+})
+
 test('GET: /videos', (done) => {
     request(app)
     .get('/videos?sort="-description"')
@@ -70,13 +102,13 @@ test('GET: /system', (done) => {
 })
 
 
-test('GET: /videos/:id', (done) => {
-
+test('PUT: /videos/:id', (done) => {
     const randomStr= randomString()
-    const payload = JSON.stringify({newTitle: randomStr})
+    const payload = {newTitle: randomStr}
 
     request(app)
-    .put(`/videos/${videoId}?payload=${payload}`)
+    .put(`/videos/${videoId}`)
+    .send(payload)
     .expect(200)
     .end(function(err, res) {
         videoDetail(videoId).then(

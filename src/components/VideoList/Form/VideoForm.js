@@ -85,19 +85,19 @@ class VideoForm extends React.Component {
     return payload
   }
   binClick () {
-    const {updateVideoAction, video, turnOnLoading, turnOffLoading, setAlertMessage} = this.props
+    const {updateVideoAction, video, turnOnLoading, turnOffLoading, setAlertMessage, deleteVideo} = this.props
     const {_id} = video
     const payload ={status: 'DELETED'}
-    console.log(' -------- bin click : ', _id)
 
     turnOnLoading()
     updateVideoAction(_id, payload).then(
       ()=> {
-        // console.log('update done: ', _id)
+        console.log('update done: ', _id)
         var isAlertSuccess = true;
         var message = 'Video is deleted';
         turnOffLoading()    
-        setAlertMessage(message, isAlertSuccess)      
+        setAlertMessage(message, isAlertSuccess)     
+        deleteVideo(_id) 
       }, 
       (err) => {
         turnOffLoading()    
@@ -201,6 +201,7 @@ VideoForm.propTypes = {
   turnOnLoading: PropTypes.func.isRequired,
   turnOffLoading: PropTypes.func.isRequired,
   setAlertMessage: PropTypes.func.isRequired,
+  deleteVideo: PropTypes.func.isRequired
 }
 
 export default VideoForm
