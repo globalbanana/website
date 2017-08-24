@@ -34,6 +34,7 @@ class FormTextInput extends React.Component {
 
 FormTextInput.propTypes = {
   label: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
   value: PropTypes.string,
   error: PropTypes.string,
 }

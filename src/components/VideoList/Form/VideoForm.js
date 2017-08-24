@@ -4,25 +4,33 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import style from './VideoForm.css'
 
+import CheckBox from './CheckBox'
 import FormTextInput from './FormTextInput'
 import S3Uploader from './S3Uploader'
 
-import {dateMDY} from '../../util/date'
+import {dateMDY} from '../../../util/date'
 
 class VideoForm extends React.Component {
 
   constructor (props) {
     super(props)
+    const isCheck = (props.video.status)?
+                      (props.video.status === 'READY')? true :false
+                    :false
+
     this.state = {
       changeTitle: false,
       changeDescription: false,
       changeVideo: false,
+      changeIsCheck: false,
       newTitle: props.video.newTitle || '',
+      isCheck:  isCheck,
       editedSource: props.video.editedSource || '',
       newDescription: props.video.newDescription || ''
     }
 
     this.updateTitle = this.updateTitle.bind(this)
+    this.updateIsCheck = this.updateIsCheck.bind(this)
     this.updateVideo = this.updateVideo.bind(this)
     this.updateDescription = this.updateDescription.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
@@ -50,32 +58,70 @@ class VideoForm extends React.Component {
       changeDescription: true
     })
   }
+  updateIsCheck (val) {
+    // console.log(' ------------- updateIsCheck: ', val)
+    this.setState({
+      isCheck: val,
+      changeIsCheck: true
+    })
+  }
 
+  payloadHandler () {
+    const {changeTitle, changeIsCheck, changeVideo, changeDescription, newTitle, newDescription, editedSource, isCheck} = this.state
+
+    let payload = {}
+    if(changeTitle) payload['newTitle'] = newTitle
+    if(changeVideo) payload['editedSource'] = editedSource
+    if(changeDescription) payload['newDescription'] = newDescription
+
+    if(changeIsCheck) {
+      let status = ''
+      if(isCheck) status = 'READY'
+      else status = 'EDITING'
+      
+      payload['status'] = status
+    }
+
+    return payload
+  }
   binClick () {
-    console.log(' -------- bin click')
+    const {updateVideoAction, video, turnOnLoading, turnOffLoading, setAlertMessage} = this.props
+    const {_id} = video
+    const payload ={status: 'DELETED'}
+    console.log(' -------- bin click : ', _id)
+
+    turnOnLoading()
+    updateVideoAction(_id, payload).then(
+      ()=> {
+        // console.log('update done: ', _id)
+        var isAlertSuccess = true;
+        var message = 'Video is deleted';
+        turnOffLoading()    
+        setAlertMessage(message, isAlertSuccess)      
+      }, 
+      (err) => {
+        turnOffLoading()    
+        setAlertMessage(err)   
+      }
+    )
+
   }
   onSubmit (e) {
     e.preventDefault()
-    
+    const {changeTitle, changeIsCheck, changeVideo, changeDescription,} = this.state    
     const {updateVideoAction, video, turnOnLoading, turnOffLoading, setAlertMessage} = this.props
-    const {changeTitle, changeVideo, changeDescription, newTitle, newDescription, editedSource} = this.state
     const {_id} = video
     
-    if(!changeVideo && !changeTitle && !changeDescription){
+    if(!changeVideo && !changeTitle && !changeDescription && !changeIsCheck){
       return
     }
     else {
-
-      let payload = {}
-      if(changeTitle) payload['newTitle'] = newTitle
-      if(changeVideo) payload['editedSource'] = editedSource
-      if(changeDescription) payload['newDescription'] = newDescription
-
+      const payload = this.payloadHandler()
       turnOnLoading()
 
       updateVideoAction(_id, payload).then(
         ()=> {
-          console.log('update done: ', _id)
+          // console.log('update done: ', _id)
           var isAlertSuccess = true;
           var message = 'Video is updated';
           turnOffLoading()    
@@ -91,7 +137,7 @@ class VideoForm extends React.Component {
   }
   
   render () {
-    const {newTitle, newDescription} = this.state
+    const {newTitle, newDescription, isCheck} = this.state
     const {video, turnOnLoading, turnOffLoading, setAlertMessage, uploadDocumentRequest} = this.props
     
     const {createdAt, _id} = video
@@ -107,7 +153,7 @@ class VideoForm extends React.Component {
                   CreatedAt: {dateFormated}
                 </span>
                 <span className={classNames(style['inlineStyle'])} >
-                  <a href='#' onClick={this.binClick}>
+                  <a onClick={this.binClick} style={{cursor: 'pointer'}}>
                     <img src="/bin.png" alt="Bin"  className={classNames(style['bin'])}/>
                   </a>
                 </span>
@@ -135,11 +181,12 @@ class VideoForm extends React.Component {
                   setAlertMessage ={setAlertMessage}
                   onChange={this.updateVideo}
                 />
-                <div className="pure-controls">
-                  <label htmlFor="cb" className="pure-checkbox">
-                    <input id="cb" type="checkbox" /> Ready to publish
-                  </label>
-                </div>
+
+                <CheckBox 
+                  label={'Ready to publish'}
+                  onChange={this.updateIsCheck}
+                  isCheck={isCheck}
+                />
               </fieldset>
               <input type='submit' value='Save' className={classNames(style['videoFormButton'], 'pure-button')}/>
             </form>

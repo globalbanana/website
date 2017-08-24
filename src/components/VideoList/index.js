@@ -5,7 +5,7 @@ import style from './index.css'
 import ToolBar from './ToolBar'
 import ListItem from './ListItem'
 import Pagination from './Pagination'
-import VideoForm from './VideoForm'
+import VideoForm from './Form/VideoForm'
 import Loading from '../Shared/Loading'
 import AlertBox from '../Shared/AlertBox'
 

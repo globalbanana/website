@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 
 import classNames from 'classnames'
 import style from './ListItem.css'
-import VideoForm from './VideoForm'
 
 class ListItem extends React.Component {
   // constructor (props) {
