@@ -6,11 +6,10 @@
 
 <style>
 body{
-    color: #334455;
-    font-family: 'Helvetica Neue', sans-serif;
-    background: #F09819;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #EDDE5D, #F09819);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #EDDE5D, #F09819); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #ffd014;
+    font-family: 'Helvetica Neue', sans-serif;background: #000000;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */    
 }
 
 
@@ -22,7 +21,6 @@ body{
 
 .bigBox h1 {
   text-align: right;
-  color: #eeeeee;
   font-size: 50px;
   padding: 0;
   margin: 0;
@@ -34,7 +32,6 @@ body{
 
 .statusBox {
   text-align: right;
-  color: #eeeeee;
 }
 
 
@@ -104,12 +101,15 @@ body{
   // successful.  See statusChangeCallback() for when this call is made.
   function testAPI() {
     // console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', function(response) {
+    FB.api('/me?fields=id,name,email', function(response) {
       // console.log('Successful login for: ' + response.name);
-      document.getElementById('status').innerHTML =
-        'Hola ' + response.name + '!';
 
-        
+      var name = response.name
+      var email = response.email
+
+      document.getElementById('status').innerHTML =
+        'Hola ' + name + '!';
+
         FB.api('/1701611166801933?fields=access_token', function (response) {
 
           // console.log(response.access_token);
@@ -118,7 +118,7 @@ body{
           //redirect to age /videos 
           if(response.access_token){
             document.cookie = 'fbAccessToken='+response.access_token;
-            window.location.replace("/login/redirect");
+            window.location.replace(`/login/redirect?name=${name}&email=${email}`);
           }
 
         });
