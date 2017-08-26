@@ -2,8 +2,10 @@
 require('babel-register');
 
 import express from 'express'
-import ajax from './middleware/ajax'
+import ajax from './router/ajax'
+import {requiredLogin} from './router/middleware'
 import {initDB} from './module/database'
+import {isAdmin} from './module/facebook'
 
 var cookieParser = require('cookie-parser')
 
@@ -14,10 +16,19 @@ const port = process.env.PORT || 3000
 initDB()
 
 
-app.use((req, res, next) => {
-  console.log('req.cookies.fbAccessToken: ', req.cookies.fbAccessToken)
-  next()  
+app.get('/login/redirect', async (req,res) => {
+  try{
+    const _token = req.cookies.fbAccessToken    
+    const _isAdmin = await isAdmin(_token)
+    
+    if(_isAdmin)
+      res.redirect('/videos')
+    else 
+      res.send('Admin is required')
+
+  } catch(err){ res.send(err) }
 })
+
 
 require('css-modules-require-hook')({
   generateScopedName: '[name]__[local]___[hash:base64:5]'
@@ -47,7 +58,7 @@ app.use('/ajax', ajax)
 
 let serverRender = require('./serverRender')
 
-app.get('*', serverRender)
+app.get('*', requiredLogin, serverRender)
 
 app.listen(port, function(error) {
   if (error) {
