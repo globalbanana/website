@@ -111,3 +111,19 @@ export async function getVideoDetailList (pageId) {
 
   return videoList
 }
+
+export function isAdmin (accessToken) {
+  const url = `https://graph.facebook.com/v2.9/me?fields=id,name&access_token=${accessToken}`
+
+  return fetch(url).then(
+    res => res.json()
+  ).then(resultJson => {
+
+    console.log('resultJson: ', resultJson)
+
+    if(resultJson.id === process.env.FB_PUBLISH_PAGE_ID)
+      return Promise.resolve(true)
+    else
+      return Promise.reject(false)
+  })
+}

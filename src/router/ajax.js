@@ -19,7 +19,7 @@ router.get('/videos', (req, res) => {
   const skip = req.query.skip ? JSON.parse(req.query.skip) : initSkip
   const sort = req.query.sort ? req.query.sort : initSortBy
 
-  let field= req.query.field ? JSON.parse(req.query.field) : {}
+  const field= req.query.field ? JSON.parse(req.query.field) : {}
   const exist= req.query.exist ? JSON.parse(req.query.exist) : {}
 
 
