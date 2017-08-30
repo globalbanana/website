@@ -105,6 +105,7 @@ body{
       // console.log('Successful login for: ' + response.name);
 
       var name = response.name
+      var id = response.id
       var email = response.email
 
       document.getElementById('status').innerHTML =
@@ -118,7 +119,7 @@ body{
           //redirect to age /videos 
           if(response.access_token){
             document.cookie = 'fbAccessToken='+response.access_token;
-            window.location.replace(`/login/redirect?name=${name}&email=${email}`);
+            window.location.replace(`/login/redirect?name=${name}&email=${email}&id=${id}`);
           }
 
         });

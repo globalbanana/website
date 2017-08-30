@@ -11,6 +11,9 @@ export function requiredLogin (req,res,next) {
           else 
             res.send('Admin is required') 
       },
-      err => res.send('Admin is required ... ' + err)
+      err => {
+        console.log('Admin is required ... ' + err)
+        res.redirect('/login')        
+      }
   )
 }

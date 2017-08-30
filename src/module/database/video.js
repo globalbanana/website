@@ -5,12 +5,13 @@ const Schema = require('mongoose').Schema
 //* _*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*
 var VideoObject = new Schema({
   fbId: { type: String, required: true },
+  publishedFbId: { type: String },
   fbPageId: { type: String, required: true },
   title: { type: String },
   newTitle: { type: String },
   description: { type: String },
   newDescription: { type: String },
-  status: { type: String }, //READY, EDITING, PUBLISHED, DELETE
+  status: { type: String }, //READY, EDITING, PUBLISHED, DELETE  
   publishedAt: { type: Date},
   isReady: { type: Boolean },
   source: { type: String, required: true },
@@ -32,9 +33,14 @@ var VideoObject = new Schema({
 
 // middleware
 VideoObject.pre('save', function (next) {
-//   notify(this.get('email'));
+  this.status = 'EDITING'
   next()
 })
+
+VideoObject.pre('findOneAndUpdate', function (next) {
+    this.updatedAt = Date.now();
+    next()
+  })
 
 const assignKeyValue  = (from, to) => {
   Object.keys(from).forEach(

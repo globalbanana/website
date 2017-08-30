@@ -6,19 +6,37 @@ import PropTypes from 'prop-types'
 
 class FormTextInput extends React.Component {
   render() {
-    const {label, value, error, onChange} = this.props
+    const {label, value, error, onChange, isMultiLines} = this.props
 
     const _onChange = e => onChange(e.target.value)
     
+    const textAreaStyle = {
+      fontSize: 'small',
+      width: '50%', 
+    }
+
     return (
       <div className="pure-control-group">
         <label htmlFor={value}>{label}</label>
-        <input 
-          type="text" 
-          placeholder={label} 
-          onChange={_onChange}
-          value = {value}
-        />
+
+        {
+          (isMultiLines)?(
+            <textarea rows="10"
+              placeholder={label} 
+              onChange={_onChange}
+              value = {value} 
+              style={textAreaStyle}
+              />
+          ):(
+            <input 
+              type="text" 
+              placeholder={label} 
+              onChange={_onChange}
+              value = {value}
+            />
+          )
+        }
+
 
         {
           error ?
@@ -37,6 +55,7 @@ FormTextInput.propTypes = {
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string,
   error: PropTypes.string,
+  isMultiLines: PropTypes.bool,
 }
 
 export default FormTextInput

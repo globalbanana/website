@@ -1,5 +1,6 @@
 import express from 'express'
-import {isAdmin} from '../module/facebook'
+import {isAdmin, extendToken} from '../module/facebook'
+import UserModel from '../module/dataBase/user'
 
 const router = express.Router()
 
@@ -17,17 +18,30 @@ router.get('/', (req,res) => {
 router.get('/redirect', async (req,res) => {
     try{
 
+        const id = req.query.id
         const name = req.query.name
         const email = req.query.email
 
         const _token = req.cookies.fbAccessToken    
         const _isAdmin = await isAdmin(_token)
-        
-        console.log('       name: ', name)
-        console.log('       email: ', email)
 
-        if(_isAdmin)
-        res.redirect('/videos')
+        if(_isAdmin){
+            const longLiveToken = (await extendToken(_token)).access_token
+
+            const payload = {
+                fbId: id,
+                fbName: name,
+                email: email,
+                shortToken: _token,
+                longToken: longLiveToken
+              }
+                        
+            UserModel.create(payload).then(
+                res => console.log(name , "'s token is saved to DB")
+            )
+
+            res.redirect('/videos')
+        }
         else 
         res.send('Admin is required')
 

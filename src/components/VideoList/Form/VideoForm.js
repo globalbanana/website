@@ -170,6 +170,7 @@ class VideoForm extends React.Component {
                   label={'New Description'} 
                   value={newDescription}
                   onChange={this.updateDescription}
+                  isMultiLines={true}
                 />
 
                 <S3Uploader

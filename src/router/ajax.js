@@ -23,7 +23,8 @@ router.get('/videos', (req, res) => {
   const exist= req.query.exist ? JSON.parse(req.query.exist) : {}
 
 
-  field['status'] = {$ne : "DELETED"}
+  // field['status'] = {$ne : "DELETED"}
+  field['status'] = 'EDITING'
 
   videoList({limit, skip, sort}, field, exist).then(
     result => res.json(result),
