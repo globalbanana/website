@@ -6,6 +6,8 @@ import login from './router/login'
 import ajax from './router/ajax'
 import {requiredLogin} from './router/middleware'
 import {initDB} from './module/database'
+require('newrelic');
+
 const app = express()
 const port = process.env.PORT || 3000
 initDB()
@@ -42,7 +44,10 @@ app.use(cookieParser())
 
 let serverRender = require('./serverRender')
 
+
+// Without login
 app.get('*', requiredLogin, serverRender)
+// app.get('*', serverRender)
 
 app.listen(port, function(error) {
   if (error) {
