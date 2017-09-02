@@ -8,8 +8,8 @@ import {PAGE_LIMIT} from '../../config/env'
 
 class Pagination extends React.Component {
   render() {
-    const {page, sort, totalVideo} = this.props
-    const count = Math.ceil(totalVideo/PAGE_LIMIT) +1
+    const {page, sort, totalVideo} = this.context
+    const count = Math.ceil(totalVideo/PAGE_LIMIT)
 
     const renderPage = (count, page) => {
       let returnData = []
@@ -43,10 +43,10 @@ class Pagination extends React.Component {
   }
 }
 
-Pagination.propTypes = {
-  page: PropTypes.number.isRequired,
-  sort: PropTypes.string.isRequired,
-  totalVideo: PropTypes.object
+Pagination.contextTypes = {
+  sort: PropTypes.string,
+  page: PropTypes.number,
+  totalVideo: PropTypes.number
 }
 
 export default Pagination

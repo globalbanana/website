@@ -24,6 +24,13 @@ class VideoList extends React.Component {
     this.deleteVideo = this.deleteVideo.bind(this)
   }
 
+  getChildContext(){
+    const {page, sort, totalVideo} = this.props.setting
+    return {
+      page, sort, totalVideo
+    }
+  }
+
   deleteVideo (id) {
     const _arr = this.state.deletedVideoIds.slice()
     _arr.push(id)
@@ -69,7 +76,7 @@ class VideoList extends React.Component {
 
 
             <div className="pure-u-1 pure-u-md-1" style={textAlignStyle} >
-              <Pagination sort={sort} page={page} totalVideo={totalVideo}/>
+              <Pagination/>
             </div>
 
             <div className="pure-u-1 pure-u-md-1">
@@ -111,7 +118,7 @@ class VideoList extends React.Component {
             </div>
 
             <div className="pure-u-1 pure-u-md-1" style={textAlignStyle}>
-              <Pagination sort={sort} page={page} totalVideo={totalVideo}/>
+              <Pagination/>
             </div>
           </div>
       </div>
@@ -120,6 +127,11 @@ class VideoList extends React.Component {
 }
 
 
+VideoList.childContextTypes = {
+  sort: PropTypes.string,
+  page: PropTypes.number,
+  totalVideo: PropTypes.number
+}
 
 VideoList.propTypes = {
   updateVideoAction: PropTypes.func.isRequired,
