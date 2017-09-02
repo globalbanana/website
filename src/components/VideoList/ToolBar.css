@@ -20,3 +20,17 @@
 .navHeader li a:hover:not(.active) {
   background-color: #eee;
 }
+
+
+.filterContainer {
+  margin: 0 30px;
+}
+
+.filterContainer .filterItem{
+  box-sizing: border-box;
+  color: #ffbb0c;
+  border: solid 1px;
+  border-radius: 3px;
+  padding: 2px;
+  margin: 2px;
+}

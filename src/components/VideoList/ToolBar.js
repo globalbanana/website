@@ -12,7 +12,15 @@ class ToolBar extends React.Component {
       <div>
         <div className={classNames(style['navHeader'], 'pure-menu', 'pure-menu-horizontal')} >
           <ul className={classNames('pure-menu-list')}>
-
+            <li className={classNames('pure-menu-item')}>
+              <div className={classNames(style['filterContainer'])}>
+                <span className={classNames(style['filterItem'])}>New  </span>
+                <span className={classNames(style['filterItem'])}>Editing </span>
+                <span className={classNames(style['filterItem'])}>Ready </span>
+                <span className={classNames(style['filterItem'])}>Published </span>
+                <span className={classNames(style['filterItem'])}>Delete </span>
+              </div>
+            </li>
             <li className={classNames('pure-menu-item')}>
               <a href="/dashboard/create" className={classNames('pure-menu-link')}>Create</a>
             </li>
