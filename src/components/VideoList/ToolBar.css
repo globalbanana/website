@@ -2,7 +2,7 @@
   background-color: #ffffff;
   height: 50px;
   text-align: left;
-    padding: 0px 50px;
+  padding: 15px 0;
 }
 
 .navHeader ul {
@@ -11,9 +11,9 @@
 }
 
 .navHeader li a {
-  display: block;
+  /* display: block;
   text-align: center;
-  padding: 14px 16px;
+  padding: 14px 16px; */
   text-decoration: none;
 }
 
@@ -26,11 +26,23 @@
   margin: 0 30px;
 }
 
-.filterContainer .filterItem{
+.filterItem{
   box-sizing: border-box;
   color: #ffbb0c;
   border: solid 1px;
   border-radius: 3px;
   padding: 2px;
   margin: 2px;
+}
+
+.filterItem a{
+  color: #ffbb0c;
+}
+
+.active{
+  background: #ffbb0c;
+}
+
+.active a{
+  color: white;
 }

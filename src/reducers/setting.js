@@ -3,6 +3,7 @@ import {
    SET_SKIP,
    SET_SORT,
    SET_PAGE,
+   SET_FIELD,
    SET_TOTAL_VIDEO,
    TURN_OFF_LOADING,
    TURN_ON_LOADING,
@@ -36,6 +37,11 @@ const setting = (state = {}, action) => {
       return {
         ...state,
         page: action.page
+      }
+    case SET_FIELD:
+      return {
+        ...state,
+        field: action.field
       }
     case TURN_ON_LOADING:
       return {

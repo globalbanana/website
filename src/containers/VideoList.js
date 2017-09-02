@@ -11,6 +11,7 @@ import {
   SET_SKIP, 
   SET_SORT, 
   SET_PAGE,
+  SET_FIELD,
   TURN_ON_LOADING,
   TURN_OFF_LOADING,
   CLEAN_ALERT_MESSAGE,
@@ -81,6 +82,7 @@ videoList.initState = (store, req, res) => {
         dispatch({type: SET_SKIP, skip})
         dispatch({type: SET_SORT, sort})
         dispatch({type: SET_PAGE, page})
+        dispatch({type: SET_FIELD, field: JSON.stringify(field)})
         dispatch({type: SET_TOTAL_VIDEO, totalVideo: count})
         return Promise.resolve()
       }

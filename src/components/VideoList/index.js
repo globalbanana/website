@@ -25,9 +25,10 @@ class VideoList extends React.Component {
   }
 
   getChildContext(){
-    const {page, sort, totalVideo} = this.props.setting
+    const {page, sort, totalVideo, field} = this.props.setting
     return {
-      page, sort, totalVideo
+      page: JSON.parse(page),
+       sort, totalVideo, field
     }
   }
 
@@ -129,6 +130,7 @@ class VideoList extends React.Component {
 
 VideoList.childContextTypes = {
   sort: PropTypes.string,
+  field: PropTypes.string,
   page: PropTypes.number,
   totalVideo: PropTypes.number
 }
