@@ -10,25 +10,25 @@ const router = express.Router()
 
 router.use(bodyParser.json())
 
-router.get('/videos', (req, res) => {
+router.get('/videos', (req, res) => {  
   const initLimit = 20
   const initSkip = 0
   const initSortBy = '-createdAt'
+  const initField = {status: {$ne : "DELETED"}}
 
   const limit = req.query.limit ? JSON.parse(req.query.limit) : initLimit
   const skip = req.query.skip ? JSON.parse(req.query.skip) : initSkip
   const sort = req.query.sort ? req.query.sort : initSortBy
 
-  const field= req.query.field ? JSON.parse(req.query.field) : {}
+  const field= req.query.field ? JSON.parse(req.query.field) : initField
   const exist= req.query.exist ? JSON.parse(req.query.exist) : {}
-
-
-  // field['status'] = {$ne : "DELETED"}
-  field['status'] = 'EDITING'
-
+  
   videoList({limit, skip, sort}, field, exist).then(
     result => res.json(result),
-    err => res.json(err)
+    err => {
+      console.log(' +*+*+*+*+* /ajax/videos +*+*+*+*+* ', err)      
+      res.json(err)
+    }
   )
 })
 

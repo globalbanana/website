@@ -62,16 +62,16 @@ videoList.initState = (store, req, res) => {
   return (dispatch, getState) => {
     console.log('getVideoList ...................... 0')
 
-    let {page, sort = '-createdAt'} = req.query
+    let {page, sort = '-createdAt', field} = req.query
 
     page = page ? JSON.parse(page) : 1
 
     const limit = PAGE_LIMIT
-    const skip = (PAGE_LIMIT * page) - 1
+    const skip = (PAGE_LIMIT * (page - 1))
 
     return Promise.all([
       api.getVideoCount(),
-      api.getVideoList({limit, skip, sort})
+      api.getVideoList({limit, skip, sort, field})
     ]).then(
       (result) => {
         const {count} = result[0]

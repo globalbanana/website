@@ -14,10 +14,10 @@ const genSameOriginOption = (payload, isPut) => {
 }
 
 const actionCreator = {
-  getVideoList: ({limit, skip, sort}) => {
+  getVideoList: ({limit, skip, sort, field}) => {
     console.log('*_*_*_* getVideoList *_*_*_*_*')
 
-    const params = { limit, skip, sort }
+    const params = { limit, skip, sort, field}
 
     return (
       fetch(`http://localhost:${port}/ajax/videos?${querystring.stringify(params)}`)
