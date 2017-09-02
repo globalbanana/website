@@ -52,7 +52,9 @@ router.put('/videos/:id', (req, res) => {
 })
 
 router.get('/system', (req, res) => {
-  videoCount().then(
+  const status = req.query.status
+  
+  videoCount({status}).then(
     count => res.json({count}),
     err => res.json(err)
   )

@@ -26,9 +26,9 @@ const actionCreator = {
       })
     )
   },
-  getVideoCount: () => {
+  getVideoCount: (status) => {
     return (
-      fetch(`http://localhost:${port}/ajax/system`)
+      fetch(`http://localhost:${port}/ajax/system?status=${status}`)
       .then(response => {
         return response.json()
       })

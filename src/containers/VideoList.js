@@ -72,7 +72,7 @@ videoList.initState = (store, req, res) => {
     const field = JSON.stringify({status})
 
     return Promise.all([
-      api.getVideoCount(),
+      api.getVideoCount(status),
       api.getVideoList({limit, skip, sort, field})
     ]).then(
       (result) => {
