@@ -25,10 +25,18 @@ class VideoList extends React.Component {
   }
 
   getChildContext(){
-    const {page, sort, totalVideo, field} = this.props.setting
+    const {
+            page = '1',
+            sort = '-createdAt',
+            totalVideo,
+            status = 'NEW'
+          } = this.props.setting
+
     return {
       page: JSON.parse(page),
-       sort, totalVideo, field
+      sort, 
+      totalVideo, 
+      status
     }
   }
 
@@ -130,7 +138,7 @@ class VideoList extends React.Component {
 
 VideoList.childContextTypes = {
   sort: PropTypes.string,
-  field: PropTypes.string,
+  status: PropTypes.string,
   page: PropTypes.number,
   totalVideo: PropTypes.number
 }

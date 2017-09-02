@@ -10,15 +10,18 @@ import DropDown from './DropDown'
 class ToolBar extends React.Component {
 
   renderFilterButton () {
-    const {page, sort, totalVideo, field} = this.context
+    const {sort, totalVideo, status} = this.context
     const LableValueTable = ['New','Editing','Ready','Published','Deleted']
-    const isActive = (lable) => (field.indexOf(lable.toUpperCase()) === -1) ? false : true
 
     return LableValueTable.map( (lable, index) => {
-      const params = {sort,page,}
-      const _h = `/videos?${querystring.stringify(params)}&field={"status":"${lable.toUpperCase()}"}`      
+      const params = {
+        sort,
+        page:1,
+        status:lable.toUpperCase()
+      }
+      const _h = `/videos?${querystring.stringify(params)}`      
 
-      const activeStyle = (isActive(lable))? 'active' : null
+      const activeStyle = (lable.toUpperCase() === status)? 'active' : null
 
       return <span key={index} className={classNames(style['filterItem'], style[activeStyle])}> 
                 <a href={_h}>
@@ -60,7 +63,7 @@ ToolBar.contextTypes = {
   sort: PropTypes.string,
   page: PropTypes.number,
   totalVideo: PropTypes.number,
-  field: PropTypes.string
+  status: PropTypes.string
 }
 
 export default ToolBar

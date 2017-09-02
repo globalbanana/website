@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import querystring from 'querystring'
 
 import classNames from 'classnames'
 import style from './Pagination.css'
@@ -7,25 +8,31 @@ import style from './Pagination.css'
 import {PAGE_LIMIT} from '../../config/env'
 
 class Pagination extends React.Component {
-  render() {
-    const {page, sort, totalVideo} = this.context
-    const count = Math.ceil(totalVideo/PAGE_LIMIT)
-
-    const renderPage = (count, page) => {
-      let returnData = []
-
-      for (let i = 1; i < count; i++) {
-        const url = `/videos?sort=${sort}&page=${i}`
-        if (i === page) {
-          returnData.push(<a href={url} key={i} className={classNames(style['active'])}>{i}</a>)
-        } else {
-          returnData.push(<a href={url} key={i}>{i}</a>)
-        }
+  renderPage(count){
+    const {page, sort, status} = this.context    
+    let returnData = []
+    
+    for (let i = 1; i < count; i++) {
+      const params = {
+        sort,
+        page: i,
+        status
       }
+      const _h = `/videos?${querystring.stringify(params)}`      
 
-      return returnData
+      if (i === page) {
+        returnData.push(<a href={_h} key={i} className={classNames(style['active'])}>{i}</a>)
+      } else {
+        returnData.push(<a href={_h} key={i}>{i}</a>)
+      }
     }
 
+    return returnData
+  }
+
+  render() {
+    const {page, sort, totalVideo, field} = this.context
+    const count = Math.ceil(totalVideo/PAGE_LIMIT)
 
     return (
       <div className={classNames(style['pagination'])}>
@@ -33,7 +40,7 @@ class Pagination extends React.Component {
           <a href={`/videos?sort=${sort}&page=${page - 1}`}> &laquo; </a>
           :null}
 
-        {renderPage(count, page)}
+        {this.renderPage(count)}
         
         {(page !== (count-1) )
           ?<a href={`/videos?sort=${sort}&page=${page + 1}`}> &raquo; </a> 
@@ -45,6 +52,7 @@ class Pagination extends React.Component {
 
 Pagination.contextTypes = {
   sort: PropTypes.string,
+  status: PropTypes.string,
   page: PropTypes.number,
   totalVideo: PropTypes.number
 }

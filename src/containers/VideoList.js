@@ -11,7 +11,7 @@ import {
   SET_SKIP, 
   SET_SORT, 
   SET_PAGE,
-  SET_FIELD,
+  SET_STATUS,
   TURN_ON_LOADING,
   TURN_OFF_LOADING,
   CLEAN_ALERT_MESSAGE,
@@ -63,12 +63,13 @@ videoList.initState = (store, req, res) => {
   return (dispatch, getState) => {
     console.log('getVideoList ...................... 0')
 
-    let {page, sort = '-createdAt', field} = req.query
+    let {page, sort = '-createdAt', status} = req.query
 
     page = page ? JSON.parse(page) : 1
 
     const limit = PAGE_LIMIT
     const skip = (PAGE_LIMIT * (page - 1))
+    const field = JSON.stringify({status})
 
     return Promise.all([
       api.getVideoCount(),
@@ -82,7 +83,7 @@ videoList.initState = (store, req, res) => {
         dispatch({type: SET_SKIP, skip})
         dispatch({type: SET_SORT, sort})
         dispatch({type: SET_PAGE, page})
-        dispatch({type: SET_FIELD, field: JSON.stringify(field)})
+        dispatch({type: SET_STATUS, status})
         dispatch({type: SET_TOTAL_VIDEO, totalVideo: count})
         return Promise.resolve()
       }
