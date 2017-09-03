@@ -5,7 +5,7 @@ import express from 'express'
 import login from './router/login'
 import ajax from './router/ajax'
 import {requiredLogin} from './router/middleware'
-import {initDB} from './module/database'
+import {initDB} from './module/dataBase'
 require('newrelic');
 
 const app = express()

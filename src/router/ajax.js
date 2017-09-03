@@ -1,5 +1,5 @@
 import express from 'express'
-import {videoList, videoDetail, videoCount, videoUpdate} from '../../src/module/database'
+import {videoList, videoDetail, videoCount, videoUpdate} from '../../src/module/dataBase'
 import {uploadLocalFile} from '../../src/module/s3'
 
 const multiparty = require('multiparty');
