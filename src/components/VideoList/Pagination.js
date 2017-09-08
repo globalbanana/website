@@ -7,12 +7,26 @@ import style from './Pagination.css'
 
 import {PAGE_LIMIT} from '../../config/env'
 
+const INTERVAL = 10
+
 class Pagination extends React.Component {
-  renderPage(count){
+  getMin(currentPage, MAX_PAGE){
+    return (currentPage > INTERVAL) 
+            ? currentPage - INTERVAL
+            : 1
+  }
+
+  getMax(currentPage, MAX_PAGE){
+    return ( (MAX_PAGE - currentPage) > INTERVAL) 
+            ? currentPage + INTERVAL
+            : MAX_PAGE
+  }
+    
+  renderPage(MAX_PAGE){
     const {page, sort, status} = this.context    
     let returnData = []
     
-    for (let i = 1; i < count; i++) {
+    for (let i = this.getMin(page, MAX_PAGE); i < this.getMax(page, MAX_PAGE); i++) {
       const params = {
         sort,
         page: i,
