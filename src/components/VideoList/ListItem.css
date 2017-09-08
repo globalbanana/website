@@ -26,3 +26,13 @@
 .padding20px {
     padding: 20px
 }
+
+.fbInfor {
+    display: inline;
+    font-size: 12px;
+    color: white;
+    margin-left: 5px;
+    background: lightgrey;
+    border-radius: 3px;
+    padding: 3px 5px;
+}

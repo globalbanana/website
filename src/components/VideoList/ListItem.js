@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import classNames from 'classnames'
 import style from './ListItem.css'
+import {getFormattedTimeInfo} from '../../util/date'
 
 class ListItem extends React.Component {
   // constructor (props) {
@@ -11,9 +12,9 @@ class ListItem extends React.Component {
 
   render() {
     const {video} = this.props
-    const {s3Source, editedSource, description, originThumb, fbPageName, fbPageId, title, fbId, createdAt} = video
+    const {s3Source, editedSource, description, originThumb, fbPageName, fbPageId, title, fbId, createdAt, likeCount, commentCount, originCreatedAt} = video
     const pageLink = `https://facebook.com/${fbId}`
-
+    
     const renderEditedButton = () => {
       if(editedSource) {
         return (<a className={classNames(style['editedVideoButton'], 'pure-button')}
@@ -36,6 +37,30 @@ class ListItem extends React.Component {
                   target="_blank">
                   {fbPageName}
                 </a>
+
+                {
+                  (likeCount)?
+                    <div className={classNames(style['fbInfor'])}>
+                      {'Like ' +likeCount}
+                    </div>:
+                    null
+                }
+
+                {
+                  (commentCount)?
+                    <div className={classNames(style['fbInfor'])}>
+                      {'Comment ' +commentCount}
+                    </div>:
+                    null
+                }
+
+                {
+                  (originCreatedAt)?
+                    <div className={classNames(style['fbInfor'])}>
+                        {'CreatedAt ' +getFormattedTimeInfo(new Date(originCreatedAt))}
+                    </div>:
+                    null
+                }
               </header>
 
               <div>
