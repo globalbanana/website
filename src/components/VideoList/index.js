@@ -50,6 +50,22 @@ class VideoList extends React.Component {
     })
   }
   
+  renderNavBar() {
+    const url = this.props.location.pathname
+
+    const videoPath = '/videos'
+    const pagePath = '/pages'
+    const isPathActived = (path) => (url.indexOf(path) !== -1)
+
+    const videoStyleName = isPathActived(videoPath)? classNames(style['actived']) : null
+    const pageStyleName = isPathActived(pagePath)? classNames(style['actived']) : null
+
+    return <div className={classNames("sidebar pure-u-1", style['navBar'])}>
+      <a href={pagePath} className={pageStyleName}> Page</a>
+      <a href={videoPath} className={videoStyleName} > Video</a>
+    </div>
+  }
+
   render() {
     const {
         videoList,
@@ -66,6 +82,7 @@ class VideoList extends React.Component {
 
     const loadingControl = (isLoading) ? 'loading-overlay' : ''
 
+
     return (
       <div className={loadingControl}>
         <AlertBox
@@ -76,20 +93,14 @@ class VideoList extends React.Component {
         <Loading isLoading={isLoading} />
         <div className={`pure-g`}>
 
-            <div className="sidebar pure-u-1 pure-u-md-1-4">
-              <div className="header">
-                <h1 className="brand-title">A Sample Blog</h1>
-                <h2 className="brand-tagline">Creating a blog layout using Pure</h2>
-              </div>
-            </div>
-
-
-            <div className="pure-u-1 pure-u-md-1" style={textAlignStyle} >
-              <Pagination/>
-            </div>
+            {this.renderNavBar()}
 
             <div className="pure-u-1 pure-u-md-1">
               <ToolBar />
+            </div>
+
+            <div className="pure-u-1 pure-u-md-1" style={textAlignStyle} >
+              <Pagination/>
             </div>
 
             <div className="pure-u-1 pure-u-md-1">

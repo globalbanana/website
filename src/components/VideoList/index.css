@@ -1,7 +1,7 @@
 
 .row {
     /* max-height: 600px; */
-    margin: 50px 20px;
+    margin: 20px;
     padding: 20px;
     background: #f9f9f9;
 }
@@ -15,4 +15,24 @@
     font-size: 80%;
     font-weight: 500;
     letter-spacing: 0.1em;
+}
+
+
+.navBar {
+    height: 50px;
+    background: #ffe6c8;
+}
+
+.navBar .actived{
+    color: #222222;
+    border-bottom: solid #222222;
+}
+
+.navBar a{
+    margin: 10px;
+    display: inline-block;
+    font-size: larger;
+    padding-bottom: 3px;
+    color: lightgrey;
+    text-decoration: none;
 }
