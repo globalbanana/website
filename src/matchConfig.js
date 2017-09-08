@@ -3,6 +3,7 @@ import HelloWorld from './containers/HelloWorld'
 import PreloadHelloWorld from './containers/PreloadHelloWorld'
 import JsonAPI from './containers/JsonAPI'
 import VideoList from './containers/VideoList'
+import PageList from './containers/PageList'
 
 const matchConfig = [
   {
@@ -15,6 +16,11 @@ const matchConfig = [
     path: '/videos?sort=:sort&page=:page',
     component: VideoList,
     initState: VideoList.initState,
+  },
+  {
+    path: '/pages',
+    component: PageList,
+    initState: PageList.initState,
   }
   // {
   //   path: '/api',
