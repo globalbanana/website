@@ -29,7 +29,7 @@ test('GET: /videos?limit=20&skip=0', (done) => {
     });
 })
 
-test('GET: /videos`', (done) => {
+test('GET: /videos?exist=', (done) => {
     const exist = JSON.stringify({newTitle : false})
 
     request(app)
@@ -45,7 +45,7 @@ test('GET: /videos`', (done) => {
     });
 })
 
-test('GET: /videos`', (done) => {
+test('GET: /videos?exist=`', (done) => {
     const exist = JSON.stringify({newTitle : true})
 
     request(app)
@@ -61,7 +61,7 @@ test('GET: /videos`', (done) => {
     });
 })
 
-test('GET: /videos', (done) => {
+test('GET: /videos?sort="-description"', (done) => {
     request(app)
     .get('/videos?sort="-description"')
     .expect(200)

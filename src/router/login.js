@@ -1,6 +1,6 @@
 import express from 'express'
 import {isAdmin, extendToken} from '../module/facebook'
-import UserModel from '../module/database/user'
+import UserModel from '../module/dataBase/user'
 
 const router = express.Router()
 

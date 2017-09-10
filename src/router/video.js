@@ -10,7 +10,7 @@ const router = express.Router()
 
 router.use(bodyParser.json())
 
-router.get('/videos', (req, res) => {  
+router.get('/ajax/videos', (req, res) => {  
   const initLimit = 20
   const initSkip = 0
   const initSortBy = '-createdAt'
@@ -32,7 +32,7 @@ router.get('/videos', (req, res) => {
   )
 })
 
-router.get('/videos/:id', (req, res) => {
+router.get('/ajax/videos/:id', (req, res) => {
   const videoId = req.params.id
   videoDetail(videoId).then(
     result => res.json(result),
@@ -40,7 +40,7 @@ router.get('/videos/:id', (req, res) => {
   )
 })
 
-router.put('/videos/:id', (req, res) => {  
+router.put('/ajax/videos/:id', (req, res) => {  
   const videoId = req.params.id
   const condition = {_id: videoId}
   const payload = (req.body)
@@ -51,7 +51,7 @@ router.put('/videos/:id', (req, res) => {
   )
 })
 
-router.get('/system', (req, res) => {
+router.get('/ajax/system', (req, res) => {
   const status = req.query.status
   
   videoCount({status}).then(
@@ -72,7 +72,7 @@ const downloadFileToLocal = (fromPath, toPath) =>
     }); 
   })
 
-router.post('/upload', (req, res) => {
+router.post('/ajax/upload', (req, res) => {
   let form = new multiparty.Form();
 
   form.parse(req, (err, fields, files) => {
