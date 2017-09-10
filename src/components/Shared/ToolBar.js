@@ -5,8 +5,6 @@ import querystring from 'querystring'
 import classNames from 'classnames'
 import style from './ToolBar.css'
 
-import DropDown from './DropDown'
-
 class ToolBar extends React.Component {
 
   renderFilterButton () {

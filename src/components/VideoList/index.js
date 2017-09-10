@@ -2,13 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import style from './index.css'
-import ToolBar from './ToolBar'
+import ToolBar from '../Shared/ToolBar'
 import ListItem from './ListItem'
-import Pagination from './Pagination'
+import Pagination from '../Shared/Pagination'
 import VideoForm from './Form/VideoForm'
 import Loading from '../Shared/Loading'
 import AlertBox from '../Shared/AlertBox'
-import NavBar from './NavBar'
+import NavBar from '../Shared/NavBar'
 
 import {PAGE_LIMIT} from '../../config/env'
 // import style from './index.css'
@@ -146,8 +146,8 @@ VideoList.propTypes = {
   setAlertMessage: PropTypes.func.isRequired,
   clearnAlertMessage: PropTypes.func.isRequired,
   isAlertSuccess: PropTypes.bool,
-  alertMessage: PropTypes.string
-  // videoList: PropTypes.object.isRequired,
+  alertMessage: PropTypes.string,
+  videoList: PropTypes.object.isRequired,
 //   products: PropTypes.array.isRequired
 }
 
