@@ -1,0 +1,19 @@
+
+.navBar {
+    height: 50px;
+    background: #222222;
+}
+
+.navBar .actived{
+    color: #ffbb0c;
+    border-bottom: solid #ffbb0c;
+}
+
+.navBar a{
+    margin: 10px;
+    display: inline-block;
+    font-size: larger;
+    padding-bottom: 3px;
+    color: lightgrey;
+    text-decoration: none;
+}
