@@ -46,7 +46,22 @@ const actionCreator = {
         }
       )
     }
-  }
+  },
+
+  getPageList: ({limit, skip, sort, field}) => {
+    console.log('*_*_*_* getPageList *_*_*_*_*')
+
+    const params = { limit, skip, sort, field}
+
+    console.log(`http://localhost:${port}/ajax/pages?${querystring.stringify(params)}`)
+
+    return (
+      fetch(`http://localhost:${port}/ajax/pages?${querystring.stringify(params)}`)
+      .then(response => {        
+        return response.json()
+      })
+    )
+  },
 }
 
 export default actionCreator

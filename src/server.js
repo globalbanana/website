@@ -3,7 +3,8 @@ require('babel-register');
 
 import express from 'express'
 import login from './router/login'
-import ajax from './router/ajax'
+import video from './router/video'
+import page from './router/page'
 import {requiredLogin} from './router/middleware'
 import {initDB} from './module/dataBase'
 require('newrelic');
@@ -38,7 +39,8 @@ if (process.env.NODE_ENV === 'development') {
 var cookieParser = require('cookie-parser')
 
 app.use(require('express').static('public'))
-app.use('/ajax', ajax)
+app.use('/', video)
+app.use('/', page)
 app.use('/login', login)
 app.use(cookieParser())
 

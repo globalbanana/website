@@ -24,6 +24,6 @@ PageObject.pre('save', function (next) {
     next()
 })
 
-const PageModel = new Abstract('User' , PageObject)
+const PageModel = new Abstract('Page' , PageObject)
 
 export default PageModel

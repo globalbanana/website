@@ -5,6 +5,8 @@ export const SET_API_DATA = 'SET_API_DATA'
 export const VIDEO_LIST = 'VIDEO_LIST'
 export const VIDEO_DETAIL = 'VIDEO_DETAIL'
 
+export const SET_PAGE_LIST = 'SET_PAGE_LIST'
+
 export const SET_LIMIT = 'SET_LIMIT'
 export const SET_SKIP = 'SET_SKIP'
 export const SET_SORT = 'SET_SORT'
