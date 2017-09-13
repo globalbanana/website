@@ -37,7 +37,25 @@
     flex-basis: 5%;
 }
 
+
+.row .feq{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 5px 5px 20px 5px;
+    background: #f1c043;
+    padding: 5px;
+    text-align: center;
+    font-size: x-small;
+    color: #222222;
+    border-radius: 5px;
+}
+
 .header{
     margin: 20px 0;
     font-weight: bold;
+}
+
+.header span{
+    cursor: pointer;
 }

@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import style from './index.css'
 
 import NavBar from '../Shared/NavBar'
+import ToolBarPage from '../Shared/ToolBarPage'
 
 import {PAGE_LIMIT} from '../../config/env'
 // import style from './index.css'
@@ -33,13 +34,11 @@ class PageList extends React.Component {
 
   clickSortBy (___by) {
     const __by = ___by
-    console.log('1 ___by: ', ___by)
     return () => {
       const {sortBy, isIncrease} = this.state
       const _by = __by[0].toLowerCase() + __by.slice(1)
       let _isIncrease = (_by === sortBy)? !isIncrease : isIncrease
 
-      console.log('1 _by: ', _by)
       const compare = (a, b) => {
         let _a, _b
 
@@ -69,18 +68,22 @@ class PageList extends React.Component {
   }
 
   render() {
+    const {feq} = this.props.setting
     const { pageList } = this.state
     const {clickSortBy} = this
-
     return (
       <div>
-          
         <div className={`pure-g`}>
             <NavBar pathName={this.props.location.pathname}/>
+
+            <div className="pure-u-1 pure-u-md-1">
+              <ToolBarPage feq={feq}/>
+            </div>
 
             <div className={classNames("pure-u-1", style['tableContainer'])}>
 
             <div className={classNames(style['row'],style['header'])}>
+              <span className={classNames(style['s'])}> </span>
               <span className={classNames(style['s'])}> </span>
               <span className={classNames(style['name'])} onClick={clickSortBy('Name')}> Name </span>
               <span onClick={clickSortBy('FanCount')}> FanCount </span>
@@ -94,8 +97,9 @@ class PageList extends React.Component {
             {
                 pageList.map((pageItem, index) => {
                   return <div className={classNames(style['row'])} key={index}>
+                      <span className={classNames(style['s'], style['feq'])}> {pageItem.feq} </span>
                       <span className={classNames(style['s'])}> <img src={pageItem.picture} /> </span>
-                      <span className={classNames(style['name'])}> {pageItem.fbName + " : " + pageItem.feq} </span>
+                      <span className={classNames(style['name'])}> {pageItem.fbName} </span>
                       <span> {pageItem.fanCount}  </span>
                       <span> {pageItem.talkAboutCount}  </span>
                       <span className={classNames(style['xs'])}> {pageItem.total}  </span>
@@ -111,10 +115,6 @@ class PageList extends React.Component {
       </div>
     )
   }
-}
-
-
-PageList.childContextTypes = {
 }
 
 PageList.propTypes = {
