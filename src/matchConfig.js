@@ -13,9 +13,14 @@ const matchConfig = [
     exact: false
   },
   {
-    path: '/videos?sort=:sort&page=:page',
+    path: '/videos?sort=:sort&page=:page&status=:status',
     component: VideoList,
     initState: VideoList.initState,
+  },
+  {
+    path: '/pages?feq=:feq',
+    component: PageList,
+    initState: PageList.initState,
   },
   {
     path: '/pages',
