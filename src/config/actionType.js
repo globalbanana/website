@@ -14,9 +14,12 @@ export const SET_PAGE = 'SET_PAGE'
 export const SET_TOTAL_VIDEO = 'SET_TOTAL_VIDEO'
 export const SET_FIELD = 'SET_FIELD'
 export const SET_STATUS = 'SET_STATUS'
+export const SET_FEQ = 'SET_FEQ'
 
 export const TURN_OFF_LOADING = 'TURN_OFF_LOADING'
 export const TURN_ON_LOADING = 'TURN_ON_LOADING'
 
 export const SET_ALERT_MESSAGE = 'SET_ALERT_MESSAGE'
 export const CLEAN_ALERT_MESSAGE = 'CLEAN_ALERT_MESSAGE'
+
+

@@ -3,6 +3,7 @@ import {
    SET_SKIP,
    SET_SORT,
    SET_PAGE,
+   SET_FEQ,
    SET_STATUS,
    SET_FIELD,
    SET_TOTAL_VIDEO,
@@ -43,6 +44,11 @@ const setting = (state = {}, action) => {
       return {
         ...state,
         status: action.status
+      }
+    case SET_FEQ:
+      return {
+        ...state,
+        feq: action.feq
       }
     case SET_FIELD:
       return {
