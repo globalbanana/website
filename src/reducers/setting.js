@@ -6,7 +6,9 @@ import {
    SET_FEQ,
    SET_STATUS,
    SET_FIELD,
+   SET_FB_PAGE_ID,
    SET_TOTAL_VIDEO,
+   SET_PAGE_INDEX,
    TURN_OFF_LOADING,
    TURN_ON_LOADING,
    SET_ALERT_MESSAGE,
@@ -55,6 +57,11 @@ const setting = (state = {}, action) => {
         ...state,
         field: action.field
       }
+    case SET_FB_PAGE_ID:
+      return {
+        ...state,
+        fbPageId: action.fbPageId
+      }
     case TURN_ON_LOADING:
       return {
         ...state,
@@ -75,6 +82,11 @@ const setting = (state = {}, action) => {
       return {
         ...state,
         alertMessage: null
+      }
+    case SET_PAGE_INDEX:
+      return {
+        ...state,
+        pageIndex: action.pageIndex
       }
     default:
       return state

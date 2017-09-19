@@ -8,7 +8,7 @@ class NavBar extends React.Component {
         const url = this.props.pathName
         
         const videoPath = '/videos'
-        const pagePath = '/pages?feq=ALL'
+        const pagePath = '/pages'
         const isPathActived = (path) => (url.indexOf(path) !== -1)
     
         const videoStyleName = isPathActived(videoPath)? classNames(style['actived']) : null

@@ -4,6 +4,7 @@ import VideoList from './../components/VideoList'
 import api from '../actions/api'
 import {uploadDocumentRequest} from '../actions/fileUpload'
 import globalStyle from '../styles/global.css'
+import fulfillField from '../util/fulfillField'
 import {
   SET_TOTAL_VIDEO, 
   VIDEO_LIST, 
@@ -12,6 +13,8 @@ import {
   SET_SORT, 
   SET_PAGE,
   SET_STATUS,
+  SET_FB_PAGE_ID,
+  SET_PAGE_INDEX,
   TURN_ON_LOADING,
   TURN_OFF_LOADING,
   CLEAN_ALERT_MESSAGE,
@@ -63,27 +66,35 @@ videoList.initState = (store, req, res) => {
   return (dispatch, getState) => {
     console.log('getVideoList ...................... 0')
 
-    let {page, sort = '-createdAt', status} = req.query
-
+    const filterALL = _id => (_id==='ALL') ? undefined : _id
+    let {page, sort = '-createdAt', status, fbPageId} = req.query
     page = page ? JSON.parse(page) : 1
 
     const limit = PAGE_LIMIT
     const skip = (PAGE_LIMIT * (page - 1))
-    const field = JSON.stringify({status})
-
+    const field = fulfillField({status, fbPageId: filterALL(fbPageId)})
+    
     return Promise.all([
-      api.getVideoCount(status),
-      api.getVideoList({limit, skip, sort, field})
+      api.getVideoCount(field),
+      api.getVideoList({limit, skip, sort, field}),
+      api.getPageList({limit:1000})
     ]).then(
       (result) => {
         const {count} = result[0]
         const list = result[1]
+        const pageIndex = result[2].map( pageItem => {
+          const {fbPageId, fbName, videoCount} = pageItem
+          return {fbPageId, fbName, videoCount}
+        })        
+        
+        dispatch({type: SET_PAGE_INDEX, pageIndex})
         dispatch({type: VIDEO_LIST, list})
         dispatch({type: SET_LIMIT, limit})
         dispatch({type: SET_SKIP, skip})
         dispatch({type: SET_SORT, sort})
         dispatch({type: SET_PAGE, page})
         dispatch({type: SET_STATUS, status})
+        dispatch({type: SET_FB_PAGE_ID, fbPageId})
         dispatch({type: SET_TOTAL_VIDEO, totalVideo: count})
         return Promise.resolve()
       }

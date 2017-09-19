@@ -45,11 +45,11 @@ app.use('/login', login)
 app.use(cookieParser())
 
 let serverRender = require('./serverRender')
-
-
-// Without login
-app.get('*', requiredLogin, serverRender)
-// app.get('*', serverRender)
+if(process.env.NODE_ENV === 'production'){
+  app.get('*', requiredLogin, serverRender)
+} else {
+  app.get('*', serverRender)
+} 
 
 app.listen(port, function(error) {
   if (error) {

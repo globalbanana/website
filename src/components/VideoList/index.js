@@ -30,13 +30,17 @@ class VideoList extends React.Component {
             page = '1',
             sort = '-createdAt',
             totalVideo,
-            status = 'NEW'
+            status = 'NEW',
+            fbPageId = 'ALL',
+            pageIndex = []
           } = this.props.setting
 
     return {
+      pageIndex,
       page: JSON.parse(page),
       sort, 
       totalVideo, 
+      fbPageId,
       status
     }
   }
@@ -62,7 +66,7 @@ class VideoList extends React.Component {
         clearnAlertMessage,
         uploadDocumentRequest
       } = this.props
-    const {page, sort, totalVideo, isLoading, alertMessage, isAlertSuccess} = setting
+    const {page, sort, totalVideo, isLoading, alertMessage, isAlertSuccess, pageIndex} = setting
     const textAlignStyle = {textAlign: 'center'}
 
     const loadingControl = (isLoading) ? 'loading-overlay' : ''
@@ -77,7 +81,9 @@ class VideoList extends React.Component {
         <Loading isLoading={isLoading} />
         <div className={`pure-g`}>
 
-            <NavBar pathName={this.props.location.pathname}/>
+            <NavBar 
+              pathName={this.props.location.pathname}
+            />
 
             <div className="pure-u-1 pure-u-md-1">
               <ToolBar />
@@ -132,9 +138,11 @@ class VideoList extends React.Component {
 
 
 VideoList.childContextTypes = {
+  pageIndex: PropTypes.array,
   sort: PropTypes.string,
   status: PropTypes.string,
   page: PropTypes.number,
+  fbPageId: PropTypes.string,
   totalVideo: PropTypes.number
 }
 

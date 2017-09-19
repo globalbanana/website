@@ -1,6 +1,7 @@
 
 .pagination {
     display: inline-block;
+    background: rgb(123,123,123);
     margin: 10px 0;
 }
 

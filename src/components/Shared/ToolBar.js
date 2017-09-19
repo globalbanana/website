@@ -4,17 +4,19 @@ import querystring from 'querystring'
 
 import classNames from 'classnames'
 import style from './ToolBar.css'
+import DropDown from './DropDown'
 
 class ToolBar extends React.Component {
 
   renderFilterButton () {
-    const {sort, totalVideo, status} = this.context
+    const {sort, totalVideo, status, fbPageId=null} = this.context
     const LableValueTable = ['New','Editing','Ready','Published','Deleted']
 
     return LableValueTable.map( (lable, index) => {
       const params = {
         sort,
         page:1,
+        fbPageId,
         status:lable.toUpperCase()
       }
       const _h = `/videos?${querystring.stringify(params)}`      
@@ -32,24 +34,16 @@ class ToolBar extends React.Component {
   render() {
     return (
       <div>
+        {/* {JSON.stringify(pageIndex)} */}
         <div className={classNames(style['navHeader'], 'pure-menu', 'pure-menu-horizontal')} >
+          <DropDown  />
+
           <ul className={classNames('pure-menu-list')}>
             <li className={classNames('pure-menu-item')}>
               <div className={classNames(style['filterContainer'])}>
                 {this.renderFilterButton()}
               </div>
             </li>
-
-            {/* <li className={classNames('pure-menu-item')}>
-              <a href="/dashboard/create" className={classNames('pure-menu-link')}>Create</a>
-            </li>
-            <li className={classNames('pure-menu-item')}>
-              <a href="/dashboard/contact" className={classNames('pure-menu-link')}>About</a>
-            </li>
-            <li className={classNames('pure-menu-item')}>
-              <DropDown />
-            </li> */}
-
           </ul>
         </div>
       </div>
@@ -58,7 +52,9 @@ class ToolBar extends React.Component {
 }
 
 ToolBar.contextTypes = {
+  pageIndex: PropTypes.array,
   sort: PropTypes.string,
+  fbPageId: PropTypes.string,
   page: PropTypes.number,
   totalVideo: PropTypes.number,
   status: PropTypes.string

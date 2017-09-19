@@ -22,9 +22,12 @@ router.get('/ajax/videos', (req, res) => {
 
   const field= req.query.field ? JSON.parse(req.query.field) : initField
   const exist= req.query.exist ? JSON.parse(req.query.exist) : {}
+
+  console.log(' +*+*+*+*+* /field +*+*+*+*+* ', field)      
   
+
   videoList({limit, skip, sort}, field, exist).then(
-    result => res.json(result),
+    result =>  res.json(result),
     err => {
       console.log(' +*+*+*+*+* /ajax/videos +*+*+*+*+* ', err)      
       res.json(err)
@@ -51,10 +54,11 @@ router.put('/ajax/videos/:id', (req, res) => {
   )
 })
 
-router.get('/ajax/system', (req, res) => {
-  const status = req.query.status
+router.get('/ajax/system', (req, res) => {  
+  const initField = {status: {$ne : "DELETED"}}
+  const field= req.query.field ? JSON.parse(req.query.field) : initField
   
-  videoCount({status}).then(
+  videoCount(field).then(
     count => res.json({count}),
     err => res.json(err)
   )

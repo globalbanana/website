@@ -23,13 +23,14 @@ class Pagination extends React.Component {
   }
     
   renderPage(MAX_PAGE){
-    const {page, sort, status} = this.context    
+    const {page, sort, status, fbPageId=null} = this.context    
     let returnData = []
     
     for (let i = this.getMin(page, MAX_PAGE); i < this.getMax(page, MAX_PAGE); i++) {
       const params = {
         sort,
         page: i,
+        fbPageId,
         status
       }
       const _h = `/videos?${querystring.stringify(params)}`      
@@ -67,6 +68,7 @@ class Pagination extends React.Component {
 Pagination.contextTypes = {
   sort: PropTypes.string,
   status: PropTypes.string,
+  fbPageId: PropTypes.string,
   page: PropTypes.number,
   totalVideo: PropTypes.number
 }
